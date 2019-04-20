@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const commonField = require('./commonModel');
 
 const ReaderSchema = new Schema({
     firstname: {
@@ -35,14 +36,7 @@ const ReaderSchema = new Schema({
     phonenumber: {
         type: String,
     },
-    createdDate: {
-        type: Date,
-        default: new Date()
-    },
-    ModifiedDate: {
-        type: Date,
-
-    }
+    ...commonField
 
 });
 module.exports = Reader = mongoose.model('readers', ReaderSchema);
