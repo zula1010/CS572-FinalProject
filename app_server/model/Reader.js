@@ -17,6 +17,32 @@ const ReaderSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    address: {
+        state: {
+            type: String,
+        },
+        city: {
+            type: String,
+        },
+        zip: {
+            type: Number,
+        },
+        street: {
+            type: String
+        }
+    },
+    phonenumber: {
+        type: String,
+    },
+    createdDate: {
+        type: Date,
+        default: new Date()
+    },
+    ModifiedDate: {
+        type: Date,
+
     }
+
 });
 module.exports = Reader = mongoose.model('readers', ReaderSchema);

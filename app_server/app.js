@@ -11,6 +11,8 @@ const authChek = require("./authCheck");
 const librianManage = require("./routes/librianManage");
 var app = express();
 
+const readerRouter = require("./routes/reader");
+
 // view engine setup
 
 
@@ -24,6 +26,7 @@ app.use(cors());
 // app.use("api/lib",authChek("lib"));
 app.use("/login",loginRouter);
 app.use("/api/admin/librian",librianManage);
+app.use("/reader", readerRouter);
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => {
