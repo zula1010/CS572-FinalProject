@@ -1,0 +1,38 @@
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "wangdongliyanxiang@hotmail.com",
+    "password": "123"
+}
+###
+POST http://localhost:3000/api/admin/librian HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "Dong",
+    "lastname": "Wang",
+    "email": "wangdongliyanxiang@hotmail.com",
+    "password": "123",
+    "phoneNumber":"123343",
+    "roles":["admin", "lib"]
+}
+###
+GET http://localhost:3000/api/admin/librian HTTP/1.1
+
+###
+PUT http://localhost:3000/api/admin/librian/5cba8791ae03681c077df6b0 HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "Dong1",
+    "lastname": "Wang3",
+    "email": "wangdongliyanxiang@hotmail.com",
+    "password": "123",
+    "phoneNumber":"7788888",
+    "roles":["admin", "lib"]
+}
+
+###
+
+GET http://localhost:3000/validate/checkEmailDuplicate/wangdongliyanxiang@hotmail.com HTTP/1.1
