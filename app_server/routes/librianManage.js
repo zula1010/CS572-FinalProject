@@ -5,28 +5,57 @@ var mongoose = require('mongoose');
 const Librian = require('../model/Librian');
 const router = express.Router();
 
-router.post('/', (req, res, next) =>{
-    var newEntity = {...req.body};
+router.get('/', (req, res, next) => {
+    Librian.find({}, { password: false }).sort('-createDate')
+        .limit(5)
+        .exec(function (err, librianList) {
+            if (err) {
+                console.log(err);
+                return next(createError(500, "DataBase error!"));
+            }
+            res.json({ result: true, data: librianList });
+        });
+});
+router.post('/', (req, res, next) => {
+    var newEntity = { ...req.body };
+    bcrypt.hash(newEntity.password, 2, function (err, hash) {
+        newEntity.password = hash;
+        newEntity.email = newEntity.email.toLowerCase();
+        var newLibrian = new Librian({
+            _id: new mongoose.Types.ObjectId(),
+            ...newEntity,
+        });
+        newLibrian.save(err => {
+            if (!err) {
+                res.json({ result: true });
+            } else {
+                res.json({ result: false });
+            }
 
+        });
 
-  bcrypt.hash(newEntity.password, 2, function(err, hash) {
-    newEntity.password = hash;
-    newEntity.email = newEntity.email.toLowerCase();
-    var newLibrian = new Librian({
-        _id: new mongoose.Types.ObjectId(),
-        ...newEntity,
     });
-    newLibrian.save(err=>{
-        if(!err)
+
+});
+router.put('/:id', (req, res, next) => {
+    const id = req.params.id;
+    Librian.findByIdAndUpdate(id,
         {
-            res.json({result:true});
-        } else{
-            res.json({result:false});
-        }
-
-    });
-
-  });
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            phoneNumber: req.body.phoneNumber,
+            modifyDate: new Date()
+        },
+        { new: true },
+        (err, data) => {
+            const retData = {...data._doc};
+            delete retData["password"];
+            if (!err) {
+                res.json({ result: true, data: retData });
+            } else {
+                res.json({ result: false });
+            }
+        });
 
 });
 module.exports = router;

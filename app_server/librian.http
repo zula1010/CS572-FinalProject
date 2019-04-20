@@ -16,3 +16,17 @@ content-type: application/json
     "password": "123",
     "phoneNumber":"123343"
 }
+###
+GET http://localhost:3000/api/admin/librian HTTP/1.1
+
+###
+PUT http://localhost:3000/api/admin/librian/5cba8791ae03681c077df6b0 HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "Dong1",
+    "lastname": "Wang3",
+    "email": "wangdongliyanxiang@hotmail.com",
+    "password": "123",
+    "phoneNumber":"7788888"
+}
