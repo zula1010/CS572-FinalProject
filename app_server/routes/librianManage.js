@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
     var newEntity = { ...req.body };
     bcrypt.hash(newEntity.password, 2, function (err, hash) {
         newEntity.password = hash;
-        newEntity.email = newEntity.email.toLowerCase();
+        newEntity.email = newEntity.email.toLowerCase().trim();
         var newLibrian = new Librian({
             _id: new mongoose.Types.ObjectId(),
             ...newEntity,

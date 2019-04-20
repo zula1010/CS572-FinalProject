@@ -32,3 +32,7 @@ content-type: application/json
     "phoneNumber":"7788888",
     "roles":["admin", "lib"]
 }
+
+###
+
+GET http://localhost:3000/validate/checkEmailDuplicate/wangdongliyanxiang@hotmail.com HTTP/1.1

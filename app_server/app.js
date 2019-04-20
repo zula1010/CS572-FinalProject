@@ -9,6 +9,7 @@ const db = require('./config/keys').mongoURI;
 const loginRouter = require("./routes/login");
 const authChek = require("./authCheck");
 const librianManage = require("./routes/librianManage");
+const validator = require("./routes/validator");
 var app = express();
 
 const readerRouter = require("./routes/reader");
@@ -27,6 +28,7 @@ app.use(cors());
 app.use("/login",loginRouter);
 app.use("/api/admin/librian",librianManage);
 app.use("/reader", readerRouter);
+app.use("/validate", validator);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose

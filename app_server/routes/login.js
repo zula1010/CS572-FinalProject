@@ -3,9 +3,10 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Librian = require('../model/Librian');
-const loginRouter = express.Router();
+const router = express.Router();
 const JWT_TOKEN = require('../config/keys').jwtKey;
-loginRouter.post('/', function (req, res, next) {
+
+ router.post('/', function (req, res, next) {
     Librian.findOne({
         email:req.body.username
     },(err,user)=>{
@@ -38,4 +39,4 @@ loginRouter.post('/', function (req, res, next) {
 
 });
 
-module.exports = loginRouter;
+module.exports = router;
