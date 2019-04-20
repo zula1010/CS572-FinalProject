@@ -14,7 +14,8 @@ content-type: application/json
     "lastname": "Wang",
     "email": "wangdongliyanxiang@hotmail.com",
     "password": "123",
-    "phoneNumber":"123343"
+    "phoneNumber":"123343",
+    "roles":["admin", "lib"]
 }
 ###
 GET http://localhost:3000/api/admin/librian HTTP/1.1
@@ -28,5 +29,6 @@ content-type: application/json
     "lastname": "Wang3",
     "email": "wangdongliyanxiang@hotmail.com",
     "password": "123",
-    "phoneNumber":"7788888"
+    "phoneNumber":"7788888",
+    "roles":["admin", "lib"]
 }

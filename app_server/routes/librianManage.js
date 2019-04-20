@@ -44,7 +44,8 @@ router.put('/:id', (req, res, next) => {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             phoneNumber: req.body.phoneNumber,
-            modifyDate: new Date()
+            roles:req.body.roles,
+            modifyDate: new Date(),
         },
         { new: true },
         (err, data) => {

@@ -21,6 +21,9 @@ const librianSchema = mongoose.Schema({
     phoneNumber: {
         type: String
     },
+    roles: [{
+        type: String
+    }],
     ...commonField
 });
 librianSchema.index({ email: 1 }, { unique: true });
