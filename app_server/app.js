@@ -10,6 +10,8 @@ const loginRouter = require("./routes/login");
 const authChek = require("./authCheck");
 var app = express();
 
+const readerRouter = require("./routes/reader");
+
 // view engine setup
 
 
@@ -19,9 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use("api/admin",authChek("admin"));
-app.use("api/lib",authChek("lib"));
-loginRouter.use("/login",loginRouter);
+app.use("api/admin", authChek("admin"));
+app.use("api/lib", authChek("lib"));
+loginRouter.use("/login", loginRouter);
+app.use("/reader", readerRouter);
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => {
