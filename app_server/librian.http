@@ -1,0 +1,18 @@
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "wangdongliyanxiang@hotmail.com",
+    "password": "123"
+}
+###
+POST http://localhost:3000/api/admin/librian HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "Dong",
+    "lastname": "Wang",
+    "email": "wangdongliyanxiang@hotmail.com",
+    "password": "123",
+    "phoneNumber":"123343"
+}
