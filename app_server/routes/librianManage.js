@@ -44,16 +44,16 @@ router.put('/:id', (req, res, next) => {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             phoneNumber: req.body.phoneNumber,
-            roles:req.body.roles,
-            modifyDate: new Date(),
+            roles:req.body.roles
         },
-        { new: true },
+        { new: true},
         (err, data) => {
-            const retData = {...data._doc};
-            delete retData["password"];
             if (!err) {
+                const retData = {...data._doc};
+                delete retData["password"];
                 res.json({ result: true, data: retData });
             } else {
+                console.log(err);
                 res.json({ result: false });
             }
         });

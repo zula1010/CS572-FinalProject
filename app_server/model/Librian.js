@@ -27,4 +27,12 @@ const librianSchema = mongoose.Schema({
     ...commonField
 });
 librianSchema.index({ email: 1 }, { unique: true });
+librianSchema.pre("findOneAndUpdate", function(next){
+    this._update.modifyDate = new Date();
+    // console.log(this);
+    // var query = this.getQuery(); // contains id
+    // var update = this.getUpdate();
+    // console.log(update);
+    next();
+});
 module.exports = mongoose.model("librians", librianSchema);

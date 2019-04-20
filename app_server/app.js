@@ -27,6 +27,8 @@ app.use(cors());
 app.use("/login",loginRouter);
 app.use("/api/admin/librian",librianManage);
 app.use("/reader", readerRouter);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => {
