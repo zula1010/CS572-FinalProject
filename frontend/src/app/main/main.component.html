@@ -1,7 +1,56 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Library Management System</span>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/loginOut">Login Out</a>
-  </mat-toolbar-row>
-</mat-toolbar>
+<ng-container *ngIf="true">
+  <mat-toolbar color="primary" class="main-toolbar">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1>Library Management System</h1>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/loginOut">Login Out</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container [style.marginTop.px]="0" class="main-container">
+    <mat-sidenav #snav [mode]="side" fixedTopGap="56" class="main-nav">
+      <mat-nav-list>
+        <h2 mat-subheader>Admin Management</h2>
+        <a mat-list-item (click)="menuClick($event, nav.routeLink)" *ngFor="let nav of adminMenus">{{nav.text}}</a>
+      </mat-nav-list>
+      <mat-divider></mat-divider>
+      <!-- <mat-nav-list>
+        <h2 mat-subheader>Admin</h2>
+        <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
+      </mat-nav-list> -->
+    </mat-sidenav>
+
+    <mat-sidenav-content class="main-sidenav-container">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    <!-- <mat-toolbar color="primary" class="main-footer"></mat-toolbar> -->
+  </mat-sidenav-container>
+</ng-container>
+
+<!-- <ng-container *ngIf="true">
+    <mat-toolbar class="example-header">Header</mat-toolbar>
+  
+    <mat-sidenav-container class="example-container">
+      <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
+                   [fixedInViewport]="options.value.fixed" [fixedTopGap]="options.value.top"
+                   [fixedBottomGap]="options.value.bottom">
+        {{options.value.fixed ? 'Fixed' : 'Non-fixed'}} Sidenav
+      </mat-sidenav>
+  
+      <mat-sidenav-content [formGroup]="options">
+        <p><mat-checkbox formControlName="fixed">Fixed</mat-checkbox></p>
+        <p><mat-form-field>
+          <input matInput type="number" formControlName="top" placeholder="Top gap">
+        </mat-form-field></p>
+        <p><mat-form-field>
+          <input matInput type="number" formControlName="bottom" placeholder="Bottom gap">
+        </mat-form-field></p>
+        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  
+    <mat-toolbar class="example-footer">Footer</mat-toolbar>
+  </ng-container> -->

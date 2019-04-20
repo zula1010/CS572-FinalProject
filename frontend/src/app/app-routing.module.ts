@@ -8,7 +8,14 @@ const routes: Routes = [
   // { path: 'librian', component: LibrianComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'main', component: MainComponent },
+  {
+    path: 'main', component: MainComponent,
+    children: [
+      // { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'admin/lib', component: LibrianComponent },
+      // { path: 'specs', component: Specs }
+    ]
+  },
   { path: 'loginOut', redirectTo: '/login', pathMatch: 'full' },
   // {path : '', component : LoginComponent}
 ];

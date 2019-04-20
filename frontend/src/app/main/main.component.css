@@ -1,3 +1,33 @@
 .spacer {
     flex: 1 1 auto;
   }
+
+  .main-container {
+    position: absolute;
+    flex-direction: column;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .main-toolbar {
+    position: fixed;
+    left: 0;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+  }
+  .main-sidenav-container {
+    flex: 1;
+    background-color: antiquewhite;
+  }
+  
+  .main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+.main-nav{
+    background-color: darkcyan;
+}
