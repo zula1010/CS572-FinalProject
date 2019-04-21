@@ -6,15 +6,27 @@ const Librian = require('../model/Librian');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-    Librian.find({}, { password: false }).sort('-createDate')
-        .limit(5)
-        .exec(function (err, librianList) {
-            if (err) {
-                console.log(err);
-                return next(createError(500, "DataBase error!"));
-            }
-            res.json({ result: true, data: librianList });
-        });
+    // data: {
+    //     items: LibrianElement[];
+    //     total_count: number;
+    //   }
+    Librian.count({}, (err, count) => {
+        if (err) {
+            console.log(err);
+            return next(createError(500, "DataBase error!"));
+        }
+        let page = req.query.page || 0;
+        Librian.find({}, { password: false }).sort('-createDate').skip(page * 20)
+            .limit(20)
+            .exec(function (err, librianList) {
+                if (err) {
+                    console.log(err);
+                    return next(createError(500, "DataBase error!"));
+                }
+                res.json({ result: true, data: { items: librianList, total_count: count } });
+            });
+    });
+
 });
 router.post('/', (req, res, next) => {
     var newEntity = { ...req.body };
@@ -44,12 +56,12 @@ router.put('/:id', (req, res, next) => {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             phoneNumber: req.body.phoneNumber,
-            roles:req.body.roles
+            roles: req.body.roles
         },
-        { new: true},
+        { new: true },
         (err, data) => {
             if (!err) {
-                const retData = {...data._doc};
+                const retData = { ...data._doc };
                 delete retData["password"];
                 res.json({ result: true, data: retData });
             } else {
