@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
+import * as jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,21 @@ export class LoginService {
    */
   public logOut(){
     localStorage.removeItem(environment.jwtTokenKey);
+  }
+
+  /**
+   * Get the login User info
+   */
+  public getLoginUserInfo(){
+    let jwt = localStorage.getItem(environment.jwtTokenKey);
+    return jwtDecode(jwt);
+  }
+
+
+  /**
+   * Get the login User info
+   */
+  public getRoles(){
+    return this.getLoginUserInfo().roles;
   }
 }
