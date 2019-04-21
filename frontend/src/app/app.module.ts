@@ -10,13 +10,15 @@ import { MaterialModule } from './core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DashBoardComponent } from './dash-board/dash-board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LibrianComponent,
-    MainComponent
+    MainComponent,
+    DashBoardComponent
   ],
   imports: [
     BrowserModule,
