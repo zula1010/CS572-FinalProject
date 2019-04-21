@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
             return next(createError(500, "DataBase error!"));
         }
         let page = req.query.page || 0;
-        Librian.find({}, { password: false }).sort('-createDate').skip(page * 10)
+        Librian.find({}, { password: false }).sort('-modifyDate').skip(page * 10)
             .limit(10)
             .exec(function (err, librianList) {
                 if (err) {
