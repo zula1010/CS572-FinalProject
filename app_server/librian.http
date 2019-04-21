@@ -36,3 +36,28 @@ content-type: application/json
 ###
 
 GET http://localhost:3000/validate/checkEmailDuplicate/wangdongliyanxiang@hotmail.com HTTP/1.1
+
+###
+POST http://localhost:3000/api/admin/librian HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "handsome",
+    "lastname": "boy",
+    "email": "hboy@m.com",
+    "password": "123",
+    "phoneNumber":"123343",
+    "roles":["admin", "lib"]
+}
+###
+POST http://localhost:3000/api/admin/librian HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "pretty",
+    "lastname": "girl",
+    "email": "pgirl@m.com",
+    "password": "123",
+    "phoneNumber":"123343",
+    "roles":["admin", "lib"]
+}

@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   title: string = "Login";
   signInForm: FormGroup;
   failed:boolean;
+  showSpinner = false;
   ngOnInit() {
     this.loginService.logOut();
   }
@@ -24,12 +25,13 @@ export class LoginComponent implements OnInit {
     });
   }
   login(): void {
+    this.showSpinner = true;
     // console.log(this.signInForm.value);
     this.loginService.login(this.signInForm.value).subscribe((data)=>{
       if(!data["result"])
       {
         this.failed = true;
       }
-    });
+    },(err)=>{},()=>this.showSpinner=false);
   }
 }
