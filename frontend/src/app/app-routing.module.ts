@@ -6,6 +6,7 @@ import { MainComponent } from './main/main.component';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { LibrianListComponent } from './librian/librian-list/librian-list.component';
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
+import { ReaderComponent } from './reader/reader.component';
 
 const routes: Routes = [
   // { path: 'librian', component: LibrianComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: 'main', component: MainComponent,
     children: [
+      { path: 'reader', component: ReaderComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       {
         path: 'admin/lib', component: LibrianComponent, children: [

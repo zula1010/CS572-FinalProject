@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { LibrianListComponent } from './librian/librian-list/librian-list.component';
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
+import { ReaderComponent } from './reader/reader.component';
+import { AddReaderComponent } from './reader/reader.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { LibrianEditComponent } from './librian/librian-edit/librian-edit.compon
     MainComponent,
     DashBoardComponent,
     LibrianListComponent,
-    LibrianEditComponent
+    LibrianEditComponent,
+    ReaderComponent,
+    AddReaderComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { LibrianEditComponent } from './librian/librian-edit/librian-edit.compon
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddReaderComponent]
 })
 export class AppModule { }

@@ -1,0 +1,34 @@
+<div mat-dialog-content [formGroup]="form">
+
+    <mat-form-field>
+        <input matInput placeholder="Firstname" [formControl]="firstname" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Lastname" [formControl]="lastname" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Email" [formControl]="email" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Phone Number" [formControl]="phone">
+    </mat-form-field>
+    <div formGroupName="addressData">
+        <p>Address</p>
+        <mat-form-field>
+            <input matInput placeholder="State" [formControl]="state">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="City" [formControl]="city">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="ZIP" [formControl]="zip">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Street" [formControl]="street">
+        </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+        <button class="mat-raised-button" (click)="close()">Close</button>
+        <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+    </div>

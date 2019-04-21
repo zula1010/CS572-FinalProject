@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { LibrianService } from 'src/app/librian.service';
-import {merge, Observable, of as observableOf} from 'rxjs';
+import { merge, Observable, of as observableOf } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 export interface LibrianElement {
@@ -39,7 +39,7 @@ export class LibrianListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
   }
-  edit(element){
+  edit(element) {
 
   }
   ngAfterViewInit(): void {

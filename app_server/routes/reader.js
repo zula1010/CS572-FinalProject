@@ -45,6 +45,6 @@ router.put('/update/:id', (req, res) => {
 })
 router.get('/', (req, res) => {
     Reader.find({}).sort('-createDate')
-        .then(data => res.json(data));
+        .then(data => { res.json(data); });
 })
 module.exports = router;
