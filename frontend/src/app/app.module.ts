@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashBoardComponent } from './dash-board/dash-board.component';
+import { LibrianListComponent } from './librian/librian-list/librian-list.component';
+import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DashBoardComponent } from './dash-board/dash-board.component';
     LoginComponent,
     LibrianComponent,
     MainComponent,
-    DashBoardComponent
+    DashBoardComponent,
+    LibrianListComponent,
+    LibrianEditComponent
   ],
   imports: [
     BrowserModule,
