@@ -15,7 +15,7 @@ content-type: application/json
     "email": "wangdongliyanxiang@hotmail.com",
     "password": "123",
     "phoneNumber":"123343",
-    "roles":["admin", "lib"]
+    "roles":["admin"]
 }
 ###
 GET http://localhost:3000/api/admin/librian HTTP/1.1
@@ -52,6 +52,7 @@ content-type: application/json
 ###
 POST http://localhost:3000/api/admin/librian HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhbmdkb25nbGl5YW54aWFuZ0Bob3RtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwibGliIl0sImlhdCI6MTU1NTk2NzQ3MywiZXhwIjoxNTU2MDEwNjczfQ.LPKQv-eaLFiSUNFegNI3vdwGaU2tGjvqej1vTsbT2s0
 
 {
     "firstname": "pretty",

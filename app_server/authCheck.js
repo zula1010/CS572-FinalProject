@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const createError = require('http-errors');
 const JWT_TOKEN = require('./config/keys').jwtKey;
 const authCheck = (role) => {
     return function (req, res, next) {

@@ -37,6 +37,16 @@ app.use("/login",loginRouter);
 app.use("/api/admin/librian",librianManage);
 app.use("/reader", readerRouter);
 app.use("/validate", validator);
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // render the error page
+  res.status(err.status || 500).send(err.message);
+});
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose
