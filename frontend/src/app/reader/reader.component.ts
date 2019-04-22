@@ -87,17 +87,19 @@ export class ReaderComponent implements OnInit {
         });
   }
   delete(data) {
-    console.log(data);
-    this.service.deleteReader(data).subscribe(
-      data => {
-        if (data) {
-          // this.dataSource.data.push(data);
-          var newData = this.dataSource.data.filter((row) => row._id !== data["id"]);
-          this.dataSource = new MatTableDataSource(newData);
-          this.dataSource.paginator = this.paginator;
-          console.log("DATA: ", this.dataSource);
-        }
-      });
+    if (confirm("Press a button!")) {
+      console.log(data);
+      this.service.deleteReader(data).subscribe(
+        data => {
+          if (data) {
+            // this.dataSource.data.push(data);
+            var newData = this.dataSource.data.filter((row) => row._id !== data["id"]);
+            this.dataSource = new MatTableDataSource(newData);
+            this.dataSource.paginator = this.paginator;
+          }
+        });
+    }
+
   }
 
 }
