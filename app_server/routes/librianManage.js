@@ -29,6 +29,7 @@ router.get('/', (req, res, next) => {
 
 });
 router.post('/', (req, res, next) => {
+    console.log(req.body);
     var newEntity = { ...req.body };
     bcrypt.hash(newEntity.password, 2, function (err, hash) {
         newEntity.password = hash;
