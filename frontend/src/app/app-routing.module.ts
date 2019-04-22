@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'main', component: MainComponent,
     children: [
-      { path: 'reader', component: ReaderComponent },
+      { path: 'admin/reader', component: ReaderComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       {
         path: 'admin/lib', component: LibrianComponent, children: [

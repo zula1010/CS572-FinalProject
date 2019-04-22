@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Inject, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ReaderService } from '../reader.service';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
@@ -11,22 +11,20 @@ import { refreshDescendantViews } from '@angular/core/src/render3/instructions';
   styleUrls: ['./reader.component.css']
 })
 export class ReaderComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'firstname', 'lastname', 'email'];
-  dataSource;
+  displayedColumns: string[] = ['position', 'firstname', 'lastname', 'email', 'edit', 'delete'];
+  dataSource: MatTableDataSource<any>;
 
   dialogRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-
     this.service
       .getReader()
       .subscribe((data: any) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(data);
       });
   }
 
@@ -34,7 +32,8 @@ export class ReaderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service: ReaderService,
     public dialog: MatDialog,
-    private changeDetectorRefs: ChangeDetectorRef) { }
+    private changeDetectorRefs: ChangeDetectorRef,
+    private appRef: ApplicationRef) { }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -44,20 +43,37 @@ export class ReaderComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   openDialog() {
+    console.log(this.dataSource.data)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
     this.dialogRef = this.dialog.open(AddReaderComponent, dialogConfig);
-    this.dialogRef.afterClosed().subscribe(result => {
-    });
+    this.dialogRef
+      .afterClosed().subscribe(
+        data => {
+          if (data) {
+            // this.dataSource.data.push(data);
+            let arr = this.dataSource.data;
+            arr.unshift(data);
+            this.dataSource = new MatTableDataSource(arr);
+            this.dataSource.paginator = this.paginator;
+            console.log("DATA: ", this.dataSource);
+          }
+
+        });
   }
 
-  // refresh() {
-  //   console.log("cd worked");
-  //   this.changeDetectorRefs.detectChanges();
-  // }
+  edit(id) {
+    console.log(id);
 
+
+  }
+  delete(id) {
+    console.log(id._id);
+    this.service.deleteReader(id._id).subscribe(data => console.log("success"));
+  }
 
 }
 
@@ -97,8 +113,8 @@ export class AddReaderComponent implements OnInit {
     this.service
       .addReader(this.form.value)
       .subscribe(data => {
-
-        this.dialogRef.close();
+        console.log("dialog data:", data);
+        this.dialogRef.close(data);
       });
   }
 

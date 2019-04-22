@@ -31,7 +31,7 @@ router.post('/add', (req, res) => {
 });
 router.delete('/delete/:id', (req, res) => {
 
-    Reader.deleteOne({ '_id': req.params.id }, function (err) {
+    Reader.findByIdAndUpdate({ '_id': req.params.id }, { 'removalFlag': 1 }, function (err) {
         if (err) res.status(400).json(err);
         else res.end("deleted");
     })
