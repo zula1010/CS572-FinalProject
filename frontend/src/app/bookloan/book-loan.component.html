@@ -1,0 +1,98 @@
+<div class="page_content">
+  <div class="page_title">{{checkin_title}}  </div>
+    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="checkinSource">
+      <ng-container matColumnDef="book_id" >
+        <mat-header-cell *matHeaderCellDef [style.display]="'none'">Book Id</mat-header-cell>
+        <mat-cell *matCellDef="let element" [style.display]="'none'">{{element.book_id}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="book_title">
+        <mat-header-cell *matHeaderCellDef >Book Title </mat-header-cell>
+        <mat-cell *matCellDef="let element " >{{element.book_title}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="user_id">
+        <mat-header-cell *matHeaderCellDef >User ID</mat-header-cell>
+        <mat-cell class="description-cell"
+                  *matCellDef="let element" >{{element.user_id}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="user_name">
+        <mat-header-cell *matHeaderCellDef>User Name</mat-header-cell>
+        <mat-cell class="description-cell"
+                  *matCellDef="let element">{{element.user_name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="checkin_date">
+        <mat-header-cell *matHeaderCellDef>CheckIn Date</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let element">{{element.checkin_date}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="checkout_date">
+        <mat-header-cell *matHeaderCellDef>Checkout Date</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let element">{{element.checkout_date}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let row">
+          <button mat-button (click)="checkout(row)"> Checkin </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+    </mat-table>
+
+  <div class="page_title">{{checkout_title}}</div>
+  <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="checkinSource">
+    <ng-container matColumnDef="book_id" >
+      <mat-header-cell *matHeaderCellDef [style.display]="'none'">Book Id</mat-header-cell>
+      <mat-cell *matCellDef="let element" [style.display]="'none'">{{element.book_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="book_title">
+      <mat-header-cell *matHeaderCellDef >Book Title </mat-header-cell>
+      <mat-cell *matCellDef="let element " >{{element.book_title}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user_id">
+      <mat-header-cell *matHeaderCellDef >User ID</mat-header-cell>
+      <mat-cell class="description-cell"
+                *matCellDef="let element" >{{element.user_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user_name">
+      <mat-header-cell *matHeaderCellDef>User Name</mat-header-cell>
+      <mat-cell class="description-cell"
+                *matCellDef="let element">{{element.user_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="checkin_date">
+      <mat-header-cell *matHeaderCellDef>CheckIn Date</mat-header-cell>
+      <mat-cell class="duration-cell"
+                *matCellDef="let element">{{element.checkin_date}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="checkout_date">
+      <mat-header-cell *matHeaderCellDef>Checkout Date</mat-header-cell>
+      <mat-cell class="duration-cell"
+                *matCellDef="let element">{{element.checkout_date}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let row">
+        <button mat-button (click)="deleteCheckout(row)"> Checkin </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+  </mat-table>
+
+
+
+</div>

@@ -5,6 +5,7 @@ const schema = {
     book_id:String,
     title:String,
     isbn:String,
+    des:String,
     price: Number,
     image:String,
     number_of_copies: Number,

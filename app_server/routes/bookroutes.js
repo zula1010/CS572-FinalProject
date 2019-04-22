@@ -10,15 +10,25 @@ router.get('/book', doGetBook);
 router.post('/', doCreateBook);
 router.put('/', doUpdateBook);
 router.delete('/book', doDeleteBook);
-router.put('/copies', doAddBookCopies);
+
 router.get('/search', doSearch);
+
+router.put('/copies', doAddBookCopies);
 
 router.put('/checkout', doCheckout);
 router.put('/checkin', doCheckin);
 
 function doGetBooks(req, res, next) {
     console.log('doGetBooks Request received: \n');
-    books.find( (err, result) =>{
+    let projection = {
+        _id:0,
+        book_id:1,
+        title:1,
+        isbn:1,
+        loan_duration: 1,
+        author:1,
+    }
+    books.find( {}, projection, (err, result) =>{
         if(!err) {
             console.log("Get Books successfully: ", result);
             res.json({'Success': 1, 'result': JSON.stringify(result)})
@@ -33,6 +43,17 @@ function doGetBooks(req, res, next) {
 }
 function doGetBook(req, res, next) {
     console.log('doGetBook Request received: \n', req.query);
+    let projection = {
+        _id:0,
+        book_id:1,
+        title:1,
+        isbn:1,
+        des:1,
+        loan_duration: 1,
+        author:1,
+        number_of_copies: 1,
+        book_copies:1
+    }
     const query = {book_id: req.query['book_id']};
     books.find( query, (err, result) =>{
         if(!err) {
@@ -47,9 +68,14 @@ function doGetBook(req, res, next) {
         }
     } )
 }
-function doCreateBook(req, res, next){
+function doCreateBook_old(req, res, next){
+
     console.log('Request received: \n', req.body);
-    const book = new books(req.body);
+    const uuidv4 = require('uuid/v4');
+    const uuid = uuidv4();
+
+    let book = new books(req.body);
+    book.book_id = uuid;
     book.save( (err, result) =>{
         if(!err) {
             console.log("Created Book successfully: ", result);
@@ -64,7 +90,29 @@ function doCreateBook(req, res, next){
     } )
 }
 
-function doUpdateBook(req, res, next){
+function doCreateBook(req, res, next){
+
+    const bookRequest = req.body;
+    console.log('bookRequest received: \n', req.body);
+    let book = createBookRequest(bookRequest);
+    let bookModel = new books(book);
+    bookModel.save( (err, result) =>{
+        if(!err) {
+            console.log("Created Book successfully: ", result);
+            res.json({'Success': 1, 'result': JSON.stringify(result)})
+            res.end();
+
+        }else{
+            console.log("DB ERROR: ", err);
+            res.json({'Success': 0, 'result': null})
+            res.end();
+        }
+    } )
+}
+
+
+
+function doUpdateBook_v1(req, res, next){
     console.log('Request received: \n', req.body);
     const update = req.body;
     const query = {book_id: update.book_id};
@@ -82,6 +130,30 @@ function doUpdateBook(req, res, next){
         }
     } )
 }
+
+function doUpdateBook(req, res, next){
+
+    // const bookRequest = req.body;
+    // console.log('bookRequest received: \n', req.body);
+    // let book = createBookRequest(bookRequest);
+
+    const update = req.body;
+    const query = {book_id: update.book_id};
+    console.log("book_id: ", query);
+    books.findOneAndUpdate(query, update, (err, result) =>{
+        if(!err) {
+            console.log("Updated Book successfully: ", result);
+            res.json({'Success': 1, 'result': JSON.stringify(result)})
+            res.end();
+
+        }else{
+            console.log("DB ERROR: ", err);
+            res.json({'Success': 0, 'result': null})
+            res.end();
+        }
+    } )
+}
+
 function doDeleteBook(req, res, next){
     console.log('doDeleteBook Request received: \n', req.body);
     const query = req.body;
@@ -233,25 +305,44 @@ function doSearch(req, res, next){
     let query = {isbn: 'isbn'};
     console.log('query: \n', query);
 
+}
 
+function createBookRequest(book){
 
+    const uuidv4 = require('uuid/v4');
+    const uuid = uuidv4();
 
-    //find by isbn first
+    const copy_number = book.copy_number;
+    const copies = [];
+    for(let i = 0; i < copy_number; i++){
+        const uuid = uuidv4();
+        const copy = {copy_id:uuid};
+        copies.push(copy);
+    }
+    const book_copies = [{
+        note: book.copy_note,
+        created_date: book.created_date,
+        copies:copies
+    }]
 
-
-
-    // books.find( {$text: {$search: text}}, (err, result) =>{
-    //     if(!err) {
-    //         console.log("Search Book successfully: ", result);
-    //         res.json({'Success': 1, 'result': JSON.stringify(result)})
-    //         res.end();
-    //
-    //     }else{
-    //         console.log("DB ERROR: ", err);
-    //         res.json({'Success': 0, 'result': null})
-    //         res.end();
-    //     }
-    // } )
+    let newBook =  {
+        book_id: uuid,
+        title:book.title,
+        isbn:book.isbn,
+        des:book.des,
+        price: book.price,
+        image:book.image,
+        number_of_copies: copy_number,
+        loan_duration: book.loan_duration,
+        book_copies:book_copies,
+        book_checkouts:[],
+        history:[],
+        tag:book.tag,
+        author: book.author,
+        created_date:book.created_date,
+        modified_date: book.modified_date
+    };
+    return newBook;
 }
 
 module.exports = router;

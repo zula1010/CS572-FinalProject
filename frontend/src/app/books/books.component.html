@@ -1,0 +1,38 @@
+
+  <div class="page_content">
+    <div class="page_title">{{title}} </div>
+    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="dataSource">
+        <ng-container matColumnDef="book_id">
+          <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+          <mat-cell *matCellDef="let element" >{{element.book_id}}</mat-cell>
+        </ng-container>
+
+      <ng-container matColumnDef="isbn">
+        <mat-header-cell *matHeaderCellDef>ISBN</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let element">{{element.isbn}}</mat-cell>
+      </ng-container>
+
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef >Title </mat-header-cell>
+          <mat-cell *matCellDef="let element " >{{element.title}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="author">
+          <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+          <mat-cell class="description-cell"
+                    *matCellDef="let element">{{element.author}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell class="duration-cell" *matCellDef="let row">
+            <button mat-button (click)="viewDetails(row)"> {{getTitle(row)}} </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+
+    </mat-table>
+   </div>
+
