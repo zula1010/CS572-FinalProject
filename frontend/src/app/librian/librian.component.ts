@@ -31,6 +31,10 @@ export interface LibrianApi {
   }
 }
 
+export interface LibrianIdApi {
+  result: boolean;
+  data:  LibrianElement;
+}
 
 @Component({
   selector: 'app-librian',

@@ -23,6 +23,8 @@ GET http://localhost:3000/api/admin/librian HTTP/1.1
 ###
 PUT http://localhost:3000/api/admin/librian/5cba8791ae03681c077df6b0 HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhbmdkb25nbGl5YW54aWFuZ0Bob3RtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwibGliIl0sImlhdCI6MTU1NTk2NzQ3MywiZXhwIjoxNTU2MDEwNjczfQ.LPKQv-eaLFiSUNFegNI3vdwGaU2tGjvqej1vTsbT2s0
+
 
 {
     "firstname": "Dong1",
@@ -50,7 +52,7 @@ content-type: application/json
     "roles":["admin", "lib"]
 }
 ###
-POST http://localhost:3000/api/admin/librian HTTP/1.1
+POST http://localhost:3000/api/admin/librian/ HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhbmdkb25nbGl5YW54aWFuZ0Bob3RtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwibGliIl0sImlhdCI6MTU1NTk2NzQ3MywiZXhwIjoxNTU2MDEwNjczfQ.LPKQv-eaLFiSUNFegNI3vdwGaU2tGjvqej1vTsbT2s0
 
@@ -62,3 +64,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhb
     "phoneNumber":"123343",
     "roles":["admin", "lib"]
 }
+
+###
+GET http://localhost:3000/api/admin/librian/5cba8791ae03681c077df6b0 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhbmdkb25nbGl5YW54aWFuZ0Bob3RtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwibGliIl0sImlhdCI6MTU1NTk2NzQ3MywiZXhwIjoxNTU2MDEwNjczfQ.LPKQv-eaLFiSUNFegNI3vdwGaU2tGjvqej1vTsbT2s0
+

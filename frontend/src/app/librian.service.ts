@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AsyncValidatorFn, AbstractControl } from '@angular/forms';
-import { LibrianApi } from './librian/librian.component';
+import { LibrianApi, LibrianElement, LibrianIdApi } from './librian/librian.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,17 @@ export class LibrianService {
   public insertLibrian(data){
     return this.http.post(`${environment.apiEndpoint}/api/admin/librian`, data);
   }
+  
+  public updateLibrian(id, data){
+    return this.http.put(`${environment.apiEndpoint}/api/admin/librian/${id}`, data);
+  }
+
+  public get(id: string): Observable<LibrianIdApi> {
+    const sub = this.http
+      .get<LibrianIdApi>(`${environment.apiEndpoint}/api/admin/librian/${id}`);
+    return sub;
+  }
+
   checkEmailDuplicate(email) {
     let res = timer(1000)
       .pipe(

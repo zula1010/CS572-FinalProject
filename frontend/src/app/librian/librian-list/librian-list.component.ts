@@ -4,6 +4,7 @@ import { LibrianService } from 'src/app/librian.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { LibrianElement } from '../librian.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-librian-list',
@@ -20,12 +21,12 @@ export class LibrianListComponent implements OnInit, AfterViewInit {
 
   dataSource: Array<LibrianElement> = [];
 
-  constructor(private librianService: LibrianService) { }
+  constructor(private librianService: LibrianService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
   edit(element) {
-
+    this.router.navigate(["edit"], { relativeTo: this.route.parent, queryParams: { id: element._id } })
   }
   ngAfterViewInit(): void {
     // If the user changes the sort order, reset back to the first page.
