@@ -5,6 +5,13 @@
 
 .mat-flat-button.mat-primary{
     background-color:#5b7ca4;
+    margin:5px;
+
+}
+.mat-flat-button.mat-primary:active{
+    background-color:#5b7ca4;
+    margin:5px;
+    
 }
 .mat-flat-button.mat-primary:hover{
     background-color:#335c8e;

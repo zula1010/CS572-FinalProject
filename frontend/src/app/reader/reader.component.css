@@ -18,7 +18,10 @@ table {
   #add:hover{
     background-color:#335c8e;
   }
-  /* .mat-paginator{
-    width:90%;
-    margin:auto;
-  } */
+  .mat-dialog-container .mat-dialog-content { max-height: calc(100vh - 220px) !important; }
+.dialog-comp{
+  padding:5px;
+}
+.dialog-button{
+  padding:10px !important;
+}
