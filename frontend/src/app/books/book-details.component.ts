@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -7,6 +7,7 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {BookService} from "../services/book.service";
+
 
 @Component({
   selector: 'book-details',
@@ -17,12 +18,16 @@ export class BookDetailsComponent implements OnInit {
   private title = 'Book Details:';
   private subscription: Subscription;
   detailsForm: FormGroup;
-  private book_id = '';
-  private showCreate: boolean = true;
 
+
+  private book_id = '';
+  private action = '';
   private viewStatus = {
     enableBookCopy: true,
-    disableCreate: false
+    disableCreate: false,
+    disableDelete: true,
+    disableSave:true
+
   }
 
   //Default values
@@ -48,14 +53,24 @@ export class BookDetailsComponent implements OnInit {
               private bookService: BookService ) {
 
     this.subscription =  this.route.params.subscribe( (params) =>{
+      console.log("params: ", params)
       this.book_id = params.book_id;
-      if(this.book_id ==''){
+      this.action = params.action;
+      if(this.action =='new'){
         this.viewStatus.disableCreate = false;
         this.viewStatus.enableBookCopy = false;
-        
+        this.viewStatus.disableSave =  true;
+
       }else{
-       this.viewStatus.disableCreate = true;
-        this.viewStatus.enableBookCopy = true;
+        if(this.action == 'view'){
+          this.viewStatus.disableSave =  true;
+          this.viewStatus.disableCreate = true;
+        }else {
+          this.viewStatus.disableCreate = true;
+          this.viewStatus.enableBookCopy = true;
+          this.viewStatus.disableSave = false;
+        }
+
       }
     })
   }
@@ -102,17 +117,8 @@ export class BookDetailsComponent implements OnInit {
         console.log("ERROR: ", err);
       })
   }
-  onDelete(){
-    this.bookService.deleteBook(this.book_id)
-      .then( result =>{
-        console.log(result);
-      })
-      .catch(err =>{
-        console.log("ERROR: ", err);
-      })
-  }
 
-  onClose(){
+  onBack(){
     this.router.navigate(['main/admin/books'])
   }
 

@@ -1,25 +1,25 @@
 
   <div class="page_content">
     <div class="page_title">{{title}} </div>
-    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="dataSource">
+    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="book_id">
-          <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-          <mat-cell *matCellDef="let element" >{{element.book_id}}</mat-cell>
+          <mat-header-cell [style.display]="'none'" *matHeaderCellDef>Id</mat-header-cell>
+          <mat-cell [style.display]="'none'" *matCellDef="let element" >{{element.book_id}}</mat-cell>
         </ng-container>
 
       <ng-container matColumnDef="isbn">
-        <mat-header-cell *matHeaderCellDef>ISBN</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ISBN</mat-header-cell>
         <mat-cell class="duration-cell"
                   *matCellDef="let element">{{element.isbn}}</mat-cell>
       </ng-container>
 
         <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef >Title </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Title </mat-header-cell>
           <mat-cell *matCellDef="let element " >{{element.title}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="author">
-          <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+        <ng-container matColumnDef="author" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Author</mat-header-cell>
           <mat-cell class="description-cell"
                     *matCellDef="let element">{{element.author}}</mat-cell>
         </ng-container>
@@ -27,12 +27,23 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell class="duration-cell" *matCellDef="let row">
-            <button class="mat-raised-button mat-primary" (click)="viewDetails(row)"> {{getTitle(row)}} </button>
+            <button class="mat-raised-button mat-primary" [disabled] ="getStatus('new', row)" (click)="processRequest('new', row)"> New  </button>
+            <button class="mat-raised-button mat-primary" [disabled] ="getStatus('view', row)" (click)="processRequest('view',row)"> View </button>
+            <button class="mat-raised-button mat-primary" [disabled] ="getStatus('edit', row)" (click)="processRequest('edit', row)"> Edit  </button>
+            <button class="mat-raised-button mat-primary" [disabled] ="getStatus('delete', row)"  (click)="onDelete(row)"> Delete </button>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
-
     </mat-table>
+    <mat-paginator [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons>
+    </mat-paginator>
+
+    <!--<mat-paginator [length]="course?.lessonsCount" [pageSize]="3"-->
+                   <!--[pageSizeOptions]="[3, 5, 10]"></mat-paginator>-->
+    <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
+
    </div>
 

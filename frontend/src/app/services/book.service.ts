@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -20,24 +20,6 @@ export class BookService {
         resolve(JSON.parse(res['result']))
       });
     });
-
-    // let promise = new Promise((resolve, reject) => {
-    // let books = [
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description from Service', isbn: 'ISBN'},
-    //     {book_id:'000002', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //     {book_id:'000001', title: 'Book Title', author:'Book Description', isbn: 'ISBN'},
-    //   ];
-    //   resolve(books);
-    // });
     return promise;
   }
 
@@ -55,10 +37,7 @@ export class BookService {
           resolve({})
           console.log('Data Received: ', dataReceived)
         }
-
-        
-
-      });
+     });
     });
 
     return promise;
@@ -103,10 +82,18 @@ export class BookService {
   }
 
   public deleteBook(book_id:string){
-
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: { book_id: book_id},
+    };
     let promise = new Promise((resolve, reject) => {
-      console.log("Request received: ",book_id );
-      resolve({success: 1, result: 1})
+      let url = 'http://localhost:3000/books/book';
+      this.http.delete(url, options).subscribe(res =>{
+        console.log('Data Received: ', res);
+        resolve(res)
+      });
     });
     return promise;
   }

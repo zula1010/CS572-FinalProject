@@ -4,7 +4,7 @@ import { BooksComponent } from './books.component';
 import {RouterModule} from "@angular/router";
 import {BookDetailsComponent} from "./book-details.component";
 import {BookSearchComponent} from "./book-search.component";
-import {MatTableModule} from "@angular/material";
+import {MatPaginator, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -14,6 +14,8 @@ import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
+    MatSortModule,
     RouterModule.forChild([
       // { path: '', component:BooksComponent,
       //   children:[{path:':book_id', component:BookDetailsComponent}]
@@ -23,7 +25,8 @@ import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
       // {path: 'checkout', component: BookCheckInOutComponent }
 
       {path: '', component:BooksComponent},
-      {path: ':book_id', component:BookDetailsComponent},
+      // {path: ':book_id', component:BookDetailsComponent},
+      {path: ':action/:book_id', component:BookDetailsComponent},
       {path: 'search', component: BookSearchComponent },
       // {path: 'checkin', component: BookCheckInOutComponent },
       // {path: 'checkout', component: BookCheckInOutComponent }
