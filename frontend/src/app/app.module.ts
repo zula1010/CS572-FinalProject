@@ -15,6 +15,8 @@ import { LibrianListComponent } from './librian/librian-list/librian-list.compon
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
 import { ReaderComponent } from './reader/reader.component';
 import { AddReaderComponent } from './reader/reader.component';
+// import {BooksModule} from "./books/books.module";
+// import {BookloanModule} from "./bookloan/bookloan.module";
 
 @NgModule({
   declarations: [
@@ -35,7 +37,10 @@ import { AddReaderComponent } from './reader/reader.component';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    // BooksModule,
+    // BookloanModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

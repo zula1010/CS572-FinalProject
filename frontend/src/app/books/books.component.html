@@ -27,7 +27,7 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell class="duration-cell" *matCellDef="let row">
-            <button mat-button (click)="viewDetails(row)"> {{getTitle(row)}} </button>
+            <button class="mat-raised-button mat-primary" (click)="viewDetails(row)"> {{getTitle(row)}} </button>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>

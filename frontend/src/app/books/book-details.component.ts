@@ -113,7 +113,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   onClose(){
-    this.router.navigate(['books'])
+    this.router.navigate(['main/admin/books'])
   }
 
   private buildForm(){

@@ -18,7 +18,10 @@ export class BooksComponent implements OnInit {
 
   viewDetails(row){
     console.log(row);
-    this.router.navigate(['books', row.book_id])
+   //this.router.navigate(['books', row.book_id])
+    this.router.navigate(['main/admin/books', row.book_id])
+
+
   }
   ngOnInit() {
     this.bookService.getBooks()

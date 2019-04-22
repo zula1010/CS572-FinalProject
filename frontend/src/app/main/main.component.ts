@@ -15,7 +15,10 @@ import { LoginService } from '../login.service';
 })
 export class MainComponent implements OnInit {
   // fillerNav = Array.from({length: 2}, (_, i) => `Nav Item ${i + 1}`);
-  adminMenus = [{ routeLink: ["admin", "lib"], text: "Librian" }, { routeLink: ["admin", "book"], text: "book" }, { routeLink: ["admin", "reader"], text: "reader" }];
+  adminMenus = [
+    { routeLink: ["admin", "lib"], text: "Librian" },
+    { routeLink: ["admin", "books"], text: "book" },
+    { routeLink: ["admin", "reader"], text: "reader" }];
   libMenus = [{ routeLink: ["lib", "checkout"], text: "check out" }, { routeLink: ["lib", "checkin"], text: "check In" }];
   roles: Array<string> = [];
   // options: FormGroup;
