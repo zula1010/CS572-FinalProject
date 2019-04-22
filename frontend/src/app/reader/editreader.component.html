@@ -1,34 +1,45 @@
-<div mat-dialog-content [formGroup]="editform">
+<div mat-dialog-content style="height: 350px" [formGroup]="editform">
+    <div class="dialog-comp">
+        <mat-form-field>
+            <input matInput placeholder="Firstname" formControlName="firstname" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Lastname" formControlName="lastname" required>
+        </mat-form-field>
+    </div>
+    <div class="dialog-comp">
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Phone Number" formControlName="phone">
+        </mat-form-field>
+    </div>
 
-    <mat-form-field>
-        <input matInput placeholder="Firstname" formControlName="firstname" required>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Lastname" formControlName="lastname" required>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Email" formControlName="email" required>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Phone Number" formControlName="phone">
-    </mat-form-field>
+
     <div formGroupName="addressData">
         <p>Address</p>
-        <mat-form-field>
-            <input matInput placeholder="State" formControlName="state">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="City" formControlName="city">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="ZIP" formControlName="zip">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Street" formControlName="street">
-        </mat-form-field>
+        <div class="dialog-comp">
+            <mat-form-field>
+                <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="City" formControlName="city">
+            </mat-form-field>
+        </div>
+        <div class="dialog-comp">
+            <mat-form-field>
+                <input matInput placeholder="ZIP" formControlName="zip">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Street" formControlName="street">
+            </mat-form-field>
+        </div>
+
+
 
     </div>
     <div mat-dialog-actions>
-        <button class="mat-raised-button" (click)="close()">Close</button>
-        <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+        <button class="mat-flat-button mat-primary" (click)="close()">Close</button>
+        <button class="mat-flat-button mat-primary" (click)="save()" [disabled]="!editform.valid">Save</button>
     </div>
