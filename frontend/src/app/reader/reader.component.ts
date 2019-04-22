@@ -4,7 +4,6 @@ import { ReaderService } from '../reader.service';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { refreshDescendantViews } from '@angular/core/src/render3/instructions';
-import Reader from './Reader';
 
 @Component({
   selector: 'app-reader',
@@ -13,8 +12,7 @@ import Reader from './Reader';
 })
 export class ReaderComponent implements OnInit {
   displayedColumns: string[] = ['position', 'firstname', 'lastname', 'email'];
-  dataSource: MatTableDataSource<Reader>
-  // dataSource;
+  dataSource;
 
   dialogRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -24,11 +22,11 @@ export class ReaderComponent implements OnInit {
 
     this.service
       .getReader()
-      .subscribe(data => {
+      .subscribe((data: any) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(data)
+        console.log(data);
       });
   }
 
