@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource} from "@angular/material";
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Router} from "@angular/router";
 import {BookService} from "../services/book.service";
 
@@ -8,43 +8,72 @@ import {BookService} from "../services/book.service";
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.css']
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent implements OnInit{
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   title =  'Books';
-  // button_title = "Show Details";
-  dataSource:any;
+  dataSource: MatTableDataSource<any>;
   tableColumns = ['book_id', 'isbn', 'title', 'author','action'];
   constructor(private router: Router, private bookService: BookService) {
   }
 
-  viewDetails(row){
-    console.log(row);
-   //this.router.navigate(['books', row.book_id])
-    this.router.navigate(['main/admin/books', row.book_id])
 
+  ngOnInit() {
+    this.loadBooks();
+  }
+  processRequest(action:string, row){
+    this.router.navigate(['main/admin/books', action, row.book_id])
+  }
+
+  onDelete(row){
+    console.log(row);
+    this.bookService.deleteBook(row.book_id)
+      .then( result =>{
+        this.loadBooks();
+        console.log(result);
+      })
+      .catch(err =>{
+        console.log("ERROR: ", err);
+      })
 
   }
-  ngOnInit() {
+
+  private loadBooks(){
     this.bookService.getBooks()
       .then( books =>{
         let newRow = {
-            book_id: '',
-            isbn: '',
-            title: '',
-            author: '',
-            action:''};
+          book_id: '',
+          isbn: '',
+          title: '',
+          author: '',
+          action:''};
         books[books.length] = (newRow);
-        this.dataSource =  new MatTableDataSource(books)
+        this.dataSource =  new MatTableDataSource(books);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
       .catch(err =>{
         this.dataSource =  new MatTableDataSource([])
         console.log('ERROR GETTING DATA:', err);
       })
   }
-  getTitle(row){
-    if(row.book_id == ''){
-      return "New";
+
+  private getStatus(view, row){
+    if(row.book_id != ''){
+      if( view == 'new'){
+        return true;
+      }else{
+        return false;
+      }
+
     }else{
-      return "Details";
+      if( view == 'new'){
+        return false;
+      }else{
+        return true;
+      }
     }
   }
 }

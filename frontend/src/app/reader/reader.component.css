@@ -1,21 +1,27 @@
 table {
-    width: 90%;
+    width: 100%;
     margin:auto;
   }
   .mat-form-field {
     font-size: 14px;
-    width:90%;
-    margin:auto;
+    float: right;
+    margin:10px;
   }
   
   
   #add{
       margin:10px;
       padding:5px;
-      
-      /* float:right; */
+      background-color:#5b7ca4;
+      color:white;
   }
-  .mat-paginator{
-    width:90%;
-    margin:auto;
+  #add:hover{
+    background-color:#335c8e;
   }
+  .mat-dialog-container .mat-dialog-content { max-height: calc(100vh - 220px) !important; }
+.dialog-comp{
+  padding:5px;
+}
+.dialog-button{
+  padding:10px !important;
+}

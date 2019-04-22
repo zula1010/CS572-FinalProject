@@ -71,7 +71,11 @@ export class ReaderComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
-    this.dialogRef = this.dialog.open(EditReaderComponent, { data: mydata });
+    this.dialogRef = this.dialog.open(
+      EditReaderComponent,
+      {
+        data: mydata
+      });
     this.dialogRef
       .afterClosed().subscribe(
         data => {
@@ -87,7 +91,7 @@ export class ReaderComponent implements OnInit {
         });
   }
   delete(data) {
-    if (confirm("Press a button!")) {
+    if (confirm("Are you sure to delete?")) {
       console.log(data);
       this.service.deleteReader(data).subscribe(
         data => {
@@ -121,7 +125,10 @@ export class AddReaderComponent implements OnInit {
     this.form = fb.group({
       'firstname': [, Validators.required],
       'lastname': ['', [Validators.required]],
-      'email': ['', [Validators.required]],
+      'email': ['', [
+        Validators.required,
+        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+      ]],
       'phone': [],
       'addressData': fb.group({
         'state': [],
@@ -171,7 +178,10 @@ export class EditReaderComponent implements OnInit {
     this.editform = fb.group({
       'firstname': [data.firstname, Validators.required],
       'lastname': [data.lastname, [Validators.required]],
-      'email': [data.email, [Validators.required]],
+      'email': [data.email, [
+        Validators.required,
+        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+      ]],
       'phone': [data.phone],
       'addressData': fb.group({
         'state': [data.state],

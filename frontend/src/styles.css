@@ -3,3 +3,42 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css";
 
+.mat-flat-button.mat-primary{
+    background-color:#5b7ca4;
+    margin:5px;
+
+}
+.mat-flat-button.mat-primary:active{
+    background-color:#5b7ca4;
+    margin:5px;
+    
+}
+.mat-flat-button.mat-primary:hover{
+    background-color:#335c8e;
+}
+.mat-toolbar-row{
+    background-color:#5b7ca4;
+}
+.mat-list-item-content{
+    background-color:white;
+    color:#5b7ca4;
+}
+.mat-list-item-content:hover{
+    color:white;
+    background-color:#5b7ca4;
+}
+.mat-subheader{
+    background-color:#335c8e;
+    color:white !important ;
+}
+body{
+    background-color: white;
+}
+.page-content, .mat-elevation-z8, .mat-drawer-inner-container, .main-sidenav-container{
+    background-color:white !important;
+}
+#container {
+    width: 90%;
+    margin : auto;
+    margin-top:30px;
+}
