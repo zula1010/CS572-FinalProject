@@ -23,28 +23,37 @@ export class LibrianService {
     return sub;
   }
 
+  public insertLibrian(data){
+    return this.http.post(`${environment.apiEndpoint}/api/admin/librian`, data);
+  }
   checkEmailDuplicate(email) {
-    return timer(1000)
+    let res = timer(1000)
       .pipe(
         switchMap(() => {
-          return this.http.get(`${environment.apiEndpoint}validate/checkEmailDuplicate/${email}`);
+          return this.http.get(`${environment.apiEndpoint}/validate/checkEmailDuplicate/${email}`);
         })
       );
+      return res;
   }
 
 
   emailValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
-      return this.checkEmailDuplicate(control.value)
+      if (control.errors||!control.value) {
+        return;
+      }
+      let result = this.checkEmailDuplicate(control.value)
         .pipe(
           map(res => {
             // if email is already taken
+            console.log(res);
             if (!res["result"]) {
               // return error
               return { 'emailExists': true };
             }
           })
         );
+      return result;
     };
 
   }

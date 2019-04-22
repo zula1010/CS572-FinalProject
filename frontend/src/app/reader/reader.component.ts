@@ -147,10 +147,15 @@ export class AddReaderComponent implements OnInit {
   add() {
     this.service
       .addReader(this.form.value)
-      .subscribe(data => {
-        console.log("dialog data:", data);
-        this.dialogRef.close(data);
-      });
+      .subscribe(
+        data => {
+          console.log("dialog data:", data);
+          this.dialogRef.close(data);
+        },
+        error => {
+          alert("User exists with this email");
+        }
+      );
   }
 
   close() {
@@ -200,10 +205,15 @@ export class EditReaderComponent implements OnInit {
   save() {
     this.service
       .updateReader(this.editform.value, this.data._id)
-      .subscribe(data => {
-        console.log("dialog data:", data);
-        this.dialogRef.close(data);
-      });
+      .subscribe(
+        data => {
+          console.log("dialog data:", data);
+          this.dialogRef.close(data);
+        },
+        error => {
+          alert("User exists with this email");
+        }
+      );
   }
 
   close() {

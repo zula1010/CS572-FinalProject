@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const createError = require('http-errors');
 const JWT_TOKEN = require('./config/keys').jwtKey;
 const authCheck = (role) => {
     return function (req, res, next) {
@@ -16,6 +17,7 @@ const authCheck = (role) => {
                 } else {
                     req.decoded = decoded;
                     if (req.decoded.roles.includes(role)) {
+                        console.log("current tokens:"+req.decoded.roles);
                         next();
                     } else {
                         next(createError(403, "You don't have permissiont to access the resoure!"));

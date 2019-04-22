@@ -30,14 +30,14 @@ export class LoginService {
   /**
    * Log out
    */
-  public logOut(){
+  public logOut() {
     localStorage.removeItem(environment.jwtTokenKey);
   }
 
   /**
    * Get the login User info
    */
-  public getLoginUserInfo(){
+  public getLoginUserInfo() {
     let jwt = localStorage.getItem(environment.jwtTokenKey);
     return jwtDecode(jwt);
   }
@@ -46,7 +46,16 @@ export class LoginService {
   /**
    * Get the login User info
    */
-  public getRoles(){
-    return this.getLoginUserInfo().roles;
+  public getRoles() {
+    let userInfo = this.getLoginUserInfo();
+    return userInfo ? userInfo.roles : [];
+  }
+
+  /**
+   * return the global token
+   */
+  public getToken() {
+    return localStorage.getItem(environment.jwtTokenKey);
+
   }
 }

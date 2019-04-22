@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const Reader = require('../model/Reader');
 router.post('/add', (req, res) => {
-    Reader.findOne({ 'email': req.body.email }).then(reader => {
+    Reader.findOne({ 'email': req.body.email, 'removalFlag': 0 }).then(reader => {
         if (reader) {
             return res.status(400).json({ "error": "Reader exists" });
         }
@@ -38,10 +38,22 @@ router.delete('/delete/:id', (req, res) => {
 
 })
 router.put('/update/:id', (req, res) => {
+    Reader.findOne({ 'email': req.body.email, 'removalFlag': 0 })
+        .then(reader => {
+            if (reader) {
+                console.log("reader exists with " + req.body.gmail + " mail from update");
+                return res.status(400).json({ "error": "Reader exists" });
+            }
+            else {
+                Reader.findByIdAndUpdate(req.params.id, req.body, { new: true })
+                    .then(data => { res.status(200).json(data) })
+                    .catch(err => { res.status(400).end(); console.log("aldaa") })
 
-    Reader.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then(data => res.status(200).json(data))
-        .catch(err => { res.status(400).end(); console.log("aldaa") })
+            }
+        })
+        .catch(err => res.json({ 'err': 'error' }));
+
+
 })
 router.get('/', (req, res) => {
     Reader.find({ 'removalFlag': 0 }).sort('-createDate')

@@ -7,6 +7,7 @@ import { DashBoardComponent } from './dash-board/dash-board.component';
 import { LibrianListComponent } from './librian/librian-list/librian-list.component';
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
 import { ReaderComponent } from './reader/reader.component';
+import { SecureGuard } from './secure.guard';
 // import {BooksModule} from "./books/books.module";
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
-    path: 'main', component: MainComponent,
+    path: 'main', component: MainComponent,canActivate: [SecureGuard],
     children: [
       { path: 'admin/reader', component: ReaderComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
