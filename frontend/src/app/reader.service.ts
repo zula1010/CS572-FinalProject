@@ -12,11 +12,12 @@ export class ReaderService {
     addReader(data) {
         return this.http.post("http://localhost:3000/reader/add", data);
     }
-    updateReader(data) {
-        return this.http.put("http://localhost:3000/reader/update", data);
+    updateReader(data, _id) {
+        console.log(data);
+        console.log(_id);
+        return this.http.put("http://localhost:3000/reader/update/" + _id, data);
     }
     deleteReader(data) {
-        console.log(data._id);
         return this.http.delete("http://localhost:3000/reader/delete/" + data._id);
     }
     getReader() {

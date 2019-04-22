@@ -5,13 +5,14 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, MatDialogRef, MAT
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { refreshDescendantViews } from '@angular/core/src/render3/instructions';
 
+
 @Component({
   selector: 'app-reader',
   templateUrl: './reader.component.html',
   styleUrls: ['./reader.component.css']
 })
 export class ReaderComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'firstname', 'lastname', 'email', 'edit', 'delete'];
+  displayedColumns: string[] = ['edit', 'delete', 'position', 'firstname', 'lastname', 'email'];
   dataSource: MatTableDataSource<any>;
 
   dialogRef;
@@ -70,7 +71,7 @@ export class ReaderComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
-    this.dialogRef = this.dialog.open(EditReaderComponent, { data: { dataKeymydata: mydata } });
+    this.dialogRef = this.dialog.open(EditReaderComponent, { data: mydata });
     this.dialogRef
       .afterClosed().subscribe(
         data => {
@@ -80,7 +81,8 @@ export class ReaderComponent implements OnInit {
             // arr.unshift(data);
             // this.dataSource = new MatTableDataSource(arr);
             // this.dataSource.paginator = this.paginator;
-            // console.log("DATA: ", this.dataSource);
+            var newData = this.dataSource.data.map((row) => row._id === data._id ? data : row);
+            this.dataSource = new MatTableDataSource(newData);
           }
         });
   }
@@ -90,8 +92,8 @@ export class ReaderComponent implements OnInit {
       data => {
         if (data) {
           // this.dataSource.data.push(data);
-          let arr = this.dataSource.data;
-          this.dataSource = new MatTableDataSource(arr);
+          var newData = this.dataSource.data.filter((row) => row._id !== data["id"]);
+          this.dataSource = new MatTableDataSource(newData);
           this.dataSource.paginator = this.paginator;
           console.log("DATA: ", this.dataSource);
         }
@@ -115,7 +117,7 @@ export class AddReaderComponent implements OnInit {
     private dialogRef: MatDialogRef<AddReaderComponent>,
     private service: ReaderService) {
     this.form = fb.group({
-      'firstname': ['', Validators.required],
+      'firstname': [, Validators.required],
       'lastname': ['', [Validators.required]],
       'email': ['', [Validators.required]],
       'phone': [],
@@ -159,19 +161,21 @@ export class EditReaderComponent implements OnInit {
   editform: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditReaderComponent>,
     private service: ReaderService) {
+
     this.editform = fb.group({
-      'firstname': ['aa', Validators.required],
-      'lastname': ['', [Validators.required]],
-      'email': ['', [Validators.required]],
-      'phone': [],
+      'firstname': [data.firstname, Validators.required],
+      'lastname': [data.lastname, [Validators.required]],
+      'email': [data.email, [Validators.required]],
+      'phone': [data.phone],
       'addressData': fb.group({
-        'state': [],
-        'city': [],
-        'zip': [],
-        'street': []
+        'state': [data.state],
+        'city': [data.city],
+        'zip': [data.zip],
+        'street': [data.street]
       }),
 
     });
@@ -183,7 +187,7 @@ export class EditReaderComponent implements OnInit {
 
   save() {
     this.service
-      .updateReader(this.editform.value)
+      .updateReader(this.editform.value, this.data._id)
       .subscribe(data => {
         console.log("dialog data:", data);
         this.dialogRef.close(data);

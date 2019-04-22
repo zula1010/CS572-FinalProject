@@ -1,14 +1,21 @@
 table {
-    width: 100%;
+    width: 90%;
+    margin:auto;
   }
   .mat-form-field {
     font-size: 14px;
-    width:15%;
+    width:90%;
+    margin:auto;
   }
   
   
   #add{
       margin:10px;
-      padding:10px;
-      float:right;
+      padding:5px;
+      
+      /* float:right; */
+  }
+  .mat-paginator{
+    width:90%;
+    margin:auto;
   }
