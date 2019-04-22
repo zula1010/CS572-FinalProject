@@ -33,13 +33,13 @@ router.delete('/delete/:id', (req, res) => {
 
     Reader.findByIdAndUpdate({ '_id': req.params.id }, { 'removalFlag': 1 }, function (err) {
         if (err) res.status(400).json(err);
-        else res.json("deleted");
+        else res.json({ result: true, id: req.params.id });
     })
 
 })
 router.put('/update/:id', (req, res) => {
 
-    Reader.findByIdAndUpdate(req.params.id, req.body)
+    Reader.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(data => res.status(200).json(data))
         .catch(err => { res.status(400).end(); console.log("aldaa") })
 })

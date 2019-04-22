@@ -1,3 +1,40 @@
-<p>
-  librian-edit works!
-</p>
+<div class="mainContainer">
+  <form [formGroup]="newOrEditForm">
+    <hr>
+    <mat-form-field class="input-half-width">
+      <input matInput required type="text" class="form-control" placeholder="first name" formControlName="firstName">
+    </mat-form-field>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <mat-form-field class="input-half-width">
+      <input matInput required type="text" class="form-control" placeholder="last name" formControlName="lastName">
+    </mat-form-field>
+    <mat-form-field class="input-full-width left">
+      <input matInput required type="email" class="form-control" placeholder="Email" formControlName="email">
+      <mat-error *ngIf="newOrEditForm.get('email').errors.emailExists"> Email exists, please use other email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-full-width">
+      <input matInput required type="password" class="form-control" placeholder="Password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field class="input-full-width">
+      <input matInput required type="password" class="form-control" placeholder="Confirm Password"
+        formControlName="confirmPassword">
+      <!-- <mat-error
+      *ngIf="newOrEditForm.invalid && (newOrEditForm.submitted || newOrEditForm.get('confirmPassword').touched)&&newOrEditForm.errors['notSame']">
+      Confirm password and Password dont match
+    </mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <input type="tel" matInput placeholder="Phone number" formControlName="phoneNumber">
+    </mat-form-field>
+    <mat-selection-list #roleSel class="checkbox">
+      <mat-list-option *ngFor="let role of roles" [selected]="role.selected" [value]="role.value">
+        {{role.displayText}}
+      </mat-list-option>
+    </mat-selection-list>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="!newOrEditForm.valid">Save</button>
+
+  </form>
+</div>

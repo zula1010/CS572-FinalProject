@@ -12,7 +12,24 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 // "roles":["admin", "lib"]
 // "createDate": "2019-04-20T23:37:59.805Z",
 // "modifyDate": "2019-04-20T23:37:59.805Z",
-
+export interface LibrianElement {
+  _id:string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+  roles: Array<string>;
+  password:string;
+  createDate: Date;
+  modifyDate: Date;
+}
+export interface LibrianApi {
+  result: boolean;
+  data: {
+    items: LibrianElement[];
+    total_count: number;
+  }
+}
 
 
 @Component({

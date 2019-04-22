@@ -3,23 +3,8 @@ import { MatPaginator } from '@angular/material';
 import { LibrianService } from 'src/app/librian.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import { LibrianElement } from '../librian.component';
 
-export interface LibrianElement {
-  firstname: string;
-  lastname: string;
-  email: string;
-  phoneNumber: string;
-  roles: Array<string>;
-  createDate: Date;
-  modifyDate: Date;
-}
-export interface LibrianApi {
-  result: boolean;
-  data: {
-    items: LibrianElement[];
-    total_count: number;
-  }
-}
 @Component({
   selector: 'app-librian-list',
   templateUrl: './librian-list.component.html',
