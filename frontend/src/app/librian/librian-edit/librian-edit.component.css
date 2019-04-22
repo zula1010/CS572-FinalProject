@@ -1,0 +1,17 @@
+.input-full-width {
+    width: 100%;
+  }
+  .input-half-width{
+    width: 40%; 
+  }
+.mainContainer{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.left{
+    margin-right:0;
+}
+
+.checkbox{
+    width: 40%; 
+}
