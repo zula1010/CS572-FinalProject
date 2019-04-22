@@ -106,4 +106,22 @@ router.put('/:id/password', (req, res, next) => {
 
 });
 
+router.delete('/:id', (req, res, next) => {
+    const id = req.params.id;
+    Librian.findByIdAndUpdate(id,
+        {
+            removalFlag:1
+        },
+        { new: true }).then(data => {
+            const retData = data._doc ? { ...data._doc } : { ...data };
+            delete retData["password"];
+            res.json({ result: true, data: retData });
+
+        }).catch(err => {
+            res.json({ result: false });
+        });
+
+
+});
+
 module.exports = router;

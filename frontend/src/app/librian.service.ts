@@ -37,6 +37,9 @@ export class LibrianService {
     return sub;
   }
 
+  public deleteLibrian(id){
+    return this.http.delete(`${environment.apiEndpoint}/api/admin/librian/${id}`);
+  }
   checkEmailDuplicate(email) {
     let res = timer(1000)
       .pipe(
