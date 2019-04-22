@@ -16,6 +16,7 @@ import { LibrianEditComponent } from './librian/librian-edit/librian-edit.compon
 import { ReaderComponent } from './reader/reader.component';
 import { AddReaderComponent } from './reader/reader.component';
 import { EditReaderComponent } from './reader/reader.component';
+import { TokenInterceptor } from './token.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,11 @@ import { EditReaderComponent } from './reader/reader.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [AddReaderComponent, EditReaderComponent]
 })

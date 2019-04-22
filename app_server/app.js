@@ -31,8 +31,8 @@ app.use(cors());
 //Books Management
 app.use('/books', bookRouter);
 
-// app.use("api/admin",authChek("admin"));
-// app.use("api/lib",authChek("lib"));
+app.use("/api/admin",authChek("admin"));
+app.use("/api/lib",authChek("lib"));
 app.use("/login",loginRouter);
 app.use("/api/admin/librian",librianManage);
 app.use("/reader", readerRouter);

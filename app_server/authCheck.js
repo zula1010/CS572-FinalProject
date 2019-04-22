@@ -16,6 +16,7 @@ const authCheck = (role) => {
                 } else {
                     req.decoded = decoded;
                     if (req.decoded.roles.includes(role)) {
+                        console.log("current tokens:"+req.decoded.roles);
                         next();
                     } else {
                         next(createError(403, "You don't have permissiont to access the resoure!"));

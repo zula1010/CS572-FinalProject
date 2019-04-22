@@ -49,4 +49,12 @@ export class LoginService {
   public getRoles(){
     return this.getLoginUserInfo().roles;
   }
+
+  /**
+   * return the global token
+   */
+  public getToken(){
+    return localStorage.getItem(environment.jwtTokenKey);
+
+  }
 }

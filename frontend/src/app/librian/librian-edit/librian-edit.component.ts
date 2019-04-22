@@ -35,7 +35,7 @@ export class LibrianEditComponent implements OnInit {
       "firstname": ['', [Validators.required]],
       "lastname": ['', [Validators.required]],
       "email": ['', [Validators.required, Validators.email],[this.librianService.emailValidator()]],
-      "password": ['', [Validators.required]],
+      "password": [''],
       "phoneNumber": [''],
       "roles": ['',  [Validators.required]]
     }, { validator: [] });
