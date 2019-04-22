@@ -23,6 +23,13 @@ export class BooksComponent implements OnInit{
   ngOnInit() {
     this.loadBooks();
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+       this.dataSource.paginator.firstPage();
+    }
+  }
   processRequest(action:string, row){
     this.router.navigate(['main/admin/books', action, row.book_id])
   }
