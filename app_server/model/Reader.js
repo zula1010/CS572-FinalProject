@@ -39,4 +39,12 @@ const ReaderSchema = new Schema({
     ...commonField
 
 });
+ReaderSchema.pre("findOneAndUpdate", function (next) {
+    this._update.modifyDate = new Date();
+    // console.log(this);
+    // var query = this.getQuery(); // contains id
+    // var update = this.getUpdate();
+    // console.log(update);
+    next();
+});
 module.exports = Reader = mongoose.model('readers', ReaderSchema);

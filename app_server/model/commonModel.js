@@ -1,10 +1,14 @@
-module.exports ={
-    createDate:{
+module.exports = {
+    createDate: {
         type: Date,
         default: Date.now
     },
-    modifyDate:{
+    modifyDate: {
         type: Date,
         default: Date.now
+    },
+    removalFlag: {
+        type: Number,
+        default: 0
     }
 };
