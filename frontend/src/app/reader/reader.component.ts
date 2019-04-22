@@ -44,7 +44,7 @@ export class ReaderComponent implements OnInit {
     }
   }
 
-  openDialog() {
+  addReader() {
     console.log(this.dataSource.data)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
@@ -61,21 +61,45 @@ export class ReaderComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
             console.log("DATA: ", this.dataSource);
           }
-
         });
   }
 
-  edit(id) {
-    console.log(id);
+  edit(mydata) {
+    console.log(mydata);
+    console.log(this.dataSource.data)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
 
-
+    this.dialogRef = this.dialog.open(EditReaderComponent, { data: { dataKeymydata: mydata } });
+    this.dialogRef
+      .afterClosed().subscribe(
+        data => {
+          if (data) {
+            // this.dataSource.data.push(data);
+            // let arr = this.dataSource.data;
+            // arr.unshift(data);
+            // this.dataSource = new MatTableDataSource(arr);
+            // this.dataSource.paginator = this.paginator;
+            // console.log("DATA: ", this.dataSource);
+          }
+        });
   }
-  delete(id) {
-    console.log(id._id);
-    this.service.deleteReader(id._id).subscribe(data => console.log("success"));
+  delete(data) {
+    console.log(data);
+    this.service.deleteReader(data).subscribe(
+      data => {
+        if (data) {
+          // this.dataSource.data.push(data);
+          let arr = this.dataSource.data;
+          this.dataSource = new MatTableDataSource(arr);
+          this.dataSource.paginator = this.paginator;
+          console.log("DATA: ", this.dataSource);
+        }
+      });
   }
 
 }
+////////ADD READER COMPONENT
 
 @Component({
   selector: 'add-dialog',
@@ -91,7 +115,7 @@ export class AddReaderComponent implements OnInit {
     private dialogRef: MatDialogRef<AddReaderComponent>,
     private service: ReaderService) {
     this.form = fb.group({
-      'firstname': ['aa', Validators.required],
+      'firstname': ['', Validators.required],
       'lastname': ['', [Validators.required]],
       'email': ['', [Validators.required]],
       'phone': [],
@@ -109,9 +133,57 @@ export class AddReaderComponent implements OnInit {
     console.log("INITIATED");
   }
 
-  save() {
+  add() {
     this.service
       .addReader(this.form.value)
+      .subscribe(data => {
+        console.log("dialog data:", data);
+        this.dialogRef.close(data);
+      });
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+}
+
+// EDIT READER COMPONENT
+
+@Component({
+  selector: 'edit-dialog',
+  templateUrl: './editreader.component.html',
+  // styleUrls: ['./addreader.component.css']
+})
+export class EditReaderComponent implements OnInit {
+
+  editform: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<EditReaderComponent>,
+    private service: ReaderService) {
+    this.editform = fb.group({
+      'firstname': ['aa', Validators.required],
+      'lastname': ['', [Validators.required]],
+      'email': ['', [Validators.required]],
+      'phone': [],
+      'addressData': fb.group({
+        'state': [],
+        'city': [],
+        'zip': [],
+        'street': []
+      }),
+
+    });
+  }
+
+  ngOnInit() {
+    console.log("INITIATED edit component");
+  }
+
+  save() {
+    this.service
+      .updateReader(this.editform.value)
       .subscribe(data => {
         console.log("dialog data:", data);
         this.dialogRef.close(data);

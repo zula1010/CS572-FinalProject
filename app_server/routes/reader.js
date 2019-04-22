@@ -33,7 +33,7 @@ router.delete('/delete/:id', (req, res) => {
 
     Reader.findByIdAndUpdate({ '_id': req.params.id }, { 'removalFlag': 1 }, function (err) {
         if (err) res.status(400).json(err);
-        else res.end("deleted");
+        else res.json("deleted");
     })
 
 })
@@ -44,7 +44,7 @@ router.put('/update/:id', (req, res) => {
         .catch(err => { res.status(400).end(); console.log("aldaa") })
 })
 router.get('/', (req, res) => {
-    Reader.find({}).sort('-createDate')
+    Reader.find({ 'removalFlag': 0 }).sort('-createDate')
         .then(data => { res.json(data); });
 })
 module.exports = router;

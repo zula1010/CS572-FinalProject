@@ -1,4 +1,4 @@
-<div mat-dialog-content [formGroup]="form">
+<div mat-dialog-content [formGroup]="editform">
 
     <mat-form-field>
         <input matInput placeholder="Firstname" formControlName="firstname" required>
@@ -30,5 +30,5 @@
     </div>
     <div mat-dialog-actions>
         <button class="mat-raised-button" (click)="close()">Close</button>
-        <button class="mat-raised-button mat-primary" (click)="add()">Add</button>
+        <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
     </div>

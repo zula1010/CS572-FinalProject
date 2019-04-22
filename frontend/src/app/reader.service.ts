@@ -16,7 +16,8 @@ export class ReaderService {
         return this.http.put("http://localhost:3000/reader/update", data);
     }
     deleteReader(data) {
-        return this.http.delete("http://localhost:3000/reader/delete", data);
+        console.log(data._id);
+        return this.http.delete("http://localhost:3000/reader/delete/" + data._id);
     }
     getReader() {
         return this.http.get("http://localhost:3000/reader");

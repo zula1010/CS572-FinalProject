@@ -15,6 +15,7 @@ import { LibrianListComponent } from './librian/librian-list/librian-list.compon
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
 import { ReaderComponent } from './reader/reader.component';
 import { AddReaderComponent } from './reader/reader.component';
+import { EditReaderComponent } from './reader/reader.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AddReaderComponent } from './reader/reader.component';
     LibrianListComponent,
     LibrianEditComponent,
     ReaderComponent,
-    AddReaderComponent
+    AddReaderComponent,
+    EditReaderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,6 @@ import { AddReaderComponent } from './reader/reader.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddReaderComponent]
+  entryComponents: [AddReaderComponent, EditReaderComponent]
 })
 export class AppModule { }
