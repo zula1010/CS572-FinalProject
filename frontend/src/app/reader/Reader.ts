@@ -1,8 +1,4 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const commonField = require('./commonModel');
-
-const ReaderSchema = new Schema({
+interface Reader {
     firstname: {
         type: String,
         required: true
@@ -36,7 +32,6 @@ const ReaderSchema = new Schema({
     phonenumber: {
         type: String,
     },
-    ...commonField
+}
 
-});
-module.exports = Reader = mongoose.model('readers', ReaderSchema);
+export default Reader;

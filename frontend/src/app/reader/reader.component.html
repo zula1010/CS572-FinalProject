@@ -3,6 +3,9 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div> -->
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
 <div>
   <button mat-raised-button (click)="openDialog()" id="add"> Add reader </button>
 </div>
@@ -37,5 +40,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 </div>

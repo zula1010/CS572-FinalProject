@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ReaderService } from '../reader.service';
-import { MatPaginator, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog, MatSort, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
+import { refreshDescendantViews } from '@angular/core/src/render3/instructions';
+import Reader from './Reader';
 
 @Component({
   selector: 'app-reader',
@@ -11,42 +13,55 @@ import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 })
 export class ReaderComponent implements OnInit {
   displayedColumns: string[] = ['position', 'firstname', 'lastname', 'email'];
-  dataSource
+  dataSource: MatTableDataSource<Reader>
+  // dataSource;
+
+  dialogRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  myData;
-  constructor(private formBuilder: FormBuilder, private service: ReaderService, public dialog: MatDialog) {
-    service.getReader().subscribe(data => { this.dataSource = data; console.log(data) });
-    this.dataSource = new MatTableDataSource(this.myData);
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngOnInit() {
+
+    this.service
+      .getReader()
+      .subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(data)
+      });
   }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: ReaderService,
+    public dialog: MatDialog,
+    private changeDetectorRefs: ChangeDetectorRef) { }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
+    if (this.dataSource.paginator) {
+      console.log("paginated");
+      this.dataSource.paginator.firstPage();
+    }
   }
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    this.dialog.open(AddReaderComponent, dialogConfig);
-
-    const dialogRef = this.dialog.open(AddReaderComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
-    );
-
+    this.dialogRef = this.dialog.open(AddReaderComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
-  ngOnInit() {
-  }
+  // refresh() {
+  //   console.log("cd worked");
+  //   this.changeDetectorRefs.detectChanges();
+  // }
+
 
 }
-
-
 
 @Component({
   selector: 'add-dialog',
@@ -70,17 +85,23 @@ export class AddReaderComponent implements OnInit {
         'state': [],
         'city': [],
         'zip': [],
+        'street': []
       }),
 
     });
   }
 
   ngOnInit() {
+    console.log("INITIATED");
   }
 
   save() {
-    this.service.addReader(this.form.value).subscribe(data => console.log(data));
-    this.dialogRef.close();
+    this.service
+      .addReader(this.form.value)
+      .subscribe(data => {
+
+        this.dialogRef.close();
+      });
   }
 
   close() {
