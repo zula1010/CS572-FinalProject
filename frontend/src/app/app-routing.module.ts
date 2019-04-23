@@ -9,6 +9,7 @@ import { LibrianEditComponent } from './librian/librian-edit/librian-edit.compon
 import { ReaderComponent } from './reader/reader.component';
 import { SecureGuard } from './secure.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { DeactivateGuardService } from './deactivate-guard.service';
 // import {BooksModule} from "./books/books.module";
 
 const routes: Routes = [
@@ -27,8 +28,8 @@ const routes: Routes = [
         path: 'admin/lib', component: LibrianComponent, children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: LibrianListComponent },
-          { path: 'new', component: LibrianEditComponent },
-          { path: 'edit', component: LibrianEditComponent }
+          { path: 'new', component: LibrianEditComponent, canDeactivate:[DeactivateGuardService] },
+          { path: 'edit', component: LibrianEditComponent, canDeactivate:[DeactivateGuardService] }
         ]
       },
       { path: 'overview', component: DashBoardComponent }
