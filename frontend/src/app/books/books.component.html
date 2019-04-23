@@ -1,52 +1,48 @@
 
-  <div class="mat-elevation-z8" id="container">
     <div class="search">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      <mat-form-field>
+        <input class="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
     </div>
-    <!--<div class="page_title">{{title}} </div>-->
-    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="book_id">
-          <mat-header-cell [style.display]="'none'" *matHeaderCellDef>Id</mat-header-cell>
-          <mat-cell [style.display]="'none'" *matCellDef="let element" >{{element.book_id}}</mat-cell>
+    <div class= "mat-elevation-z8 " id="container" >
+      <mat-table class="table-items" [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="book_id">
+            <th class="book_id" mat-header-cell [style.display]="'none'" *matHeaderCellDef>Id </th>
+            <td class="book_id" mat-cell [style.display]="'none'" *matCellDef="let element" >{{element.book_id}}</td>
+          </ng-container>
+        <ng-container matColumnDef="isbn" >
+          <th class="isbn" mat-header-cell *matHeaderCellDef mat-sort-header>ISBN</th>
+          <td class="isbn" mat-cell *matCellDef="let element">{{element.isbn}}</td>
         </ng-container>
 
-      <ng-container matColumnDef="isbn">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>ISBN</mat-header-cell>
-        <mat-cell class="duration-cell"
-                  *matCellDef="let element">{{element.isbn}}</mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="title">
+            <th class="title" mat-header-cell *matHeaderCellDef mat-sort-header>Title </th>
+            <td class="title" mat-cell *matCellDef="let element " >{{element.title}}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Title </mat-header-cell>
-          <mat-cell *matCellDef="let element " >{{element.title}}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="author" >
+            <th class="author" mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+            <td class="author" mat-cell  *matCellDef="let element">{{element.author}}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="author" >
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Author</mat-header-cell>
-          <mat-cell class="description-cell"
-                    *matCellDef="let element">{{element.author}}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="action">
+            <th class="action" mat-header-cell *matHeaderCellDef></th>
+            <td class="action" mat-cell class="duration-cell" *matCellDef="let row">
+              <button class="mat-flat-button mat-primary" [disabled] ="getStatus('new', row)" (click)="processRequest('new', row)"> New  </button>
+              <button class="mat-flat-button mat-primary"  [disabled] ="getStatus('view', row)" (click)="processRequest('view',row)"> View </button>
+              <button class="mat-flat-button mat-primary" [disabled] ="getStatus('edit', row)" (click)="processRequest('edit', row)"> Edit  </button>
+              <button class="mat-flat-button mat-primary" [disabled] ="getStatus('delete', row)"  (click)="onDelete(row)"> Delete </button>
+            </td>
+          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+      </mat-table>
+      <mat-paginator [pageSize]="5"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons>
+      </mat-paginator>
 
-        <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell class="duration-cell" *matCellDef="let row">
-            <button class="mat-flat-button mat-primary" [disabled] ="getStatus('new', row)" (click)="processRequest('new', row)"> New  </button>
-            <button class="mat-flat-button mat-primary"  [disabled] ="getStatus('view', row)" (click)="processRequest('view',row)"> View </button>
-            <button class="mat-flat-button mat-primary" [disabled] ="getStatus('edit', row)" (click)="processRequest('edit', row)"> Edit  </button>
-            <button class="mat-flat-button mat-primary" [disabled] ="getStatus('delete', row)"  (click)="onDelete(row)"> Delete </button>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
-    </mat-table>
-    <mat-paginator [pageSize]="5"
-                   [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons>
-    </mat-paginator>
 
-    <!--<mat-paginator [length]="course?.lessonsCount" [pageSize]="3"-->
-                   <!--[pageSizeOptions]="[3, 5, 10]"></mat-paginator>-->
-    <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
+     </div>
 
-   </div>
 

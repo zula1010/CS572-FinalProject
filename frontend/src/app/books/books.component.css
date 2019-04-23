@@ -10,12 +10,15 @@
 .page_title{
   font-size: 15px;
   font-weight: bold;
-
 }
 .search{
-  padding: 10px;
-  float: right;
+  overflow: auto;
 }
+.mat-form-field {
+  float: right;
+  margin-right:5%;
+}
+
 .error{
   color: red;
   font-weight: bold;
@@ -27,21 +30,14 @@
 }
 .table-items {
   width: 100%;
+  padding: 0;
+
  }
-
-
 .button_group {
   float: right;
   padding-top: 10px;
 }
 
-/*fieldset.book_copy {*/
-  /*border: 1px groove #ddd !important;*/
-  /*padding: 0 1.4em 1.4em 1.4em !important;*/
-  /*margin: 0 0 1.5em 0 !important;*/
-  /*-webkit-box-shadow:  0px 0px 0px 0px #000;*/
-  /*box-shadow:  0px 0px 0px 0px #000;*/
-/*}*/
 .book_copies{
   margin-top: 10px;
   width: 90%;
@@ -50,41 +46,25 @@
 }
 
 
-/*book_id hidden*/
-mat-cell:nth-child(1),
-mat-header-cell:nth-child(1) {
-  flex: 0 0 0%;
-
-}
-
-/*isbn*/
-mat-cell:nth-child(2),
-mat-header-cell:nth-child(2) {
-  flex: 0 0 20%;
+.isbn{
+  width: 20%;
   padding: 10px;
-
-  /*title*/
-}
-mat-cell:nth-child(3),
-mat-header-cell:nth-child(3) {
-  flex: 0 0 30%;
-
 }
 
-/*author*/
-mat-cell:nth-child(4),
-mat-header-cell:nth-child(4) {
-  flex: 0 0 20%;
-
+.title{
+  width: 30%;
+  padding: 10px;
 }
 
-/*buttons*/
-mat-cell:nth-child(5),
-mat-header-cell:nth-child(5) {
-  flex: 0 0 30%;
-  justify-content: flex-end;
+.author{
+  width: 21%;
 }
 
+
+.action{
+  width: 40%;
+
+ }
 .mat-header-cell{
   color: black;
   font-weight: bold;

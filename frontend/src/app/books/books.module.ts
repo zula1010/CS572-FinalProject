@@ -4,8 +4,15 @@ import { BooksComponent } from './books.component';
 import {RouterModule} from "@angular/router";
 import {BookDetailsComponent} from "./book-details.component";
 import {BookSearchComponent} from "./book-search.component";
-import {MatPaginator, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTableModule
+} from "@angular/material";
 import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MaterialModule} from "../core/material.module";
 
 @NgModule({
   declarations: [BooksComponent, BookDetailsComponent,BookSearchComponent ],
@@ -14,8 +21,12 @@ import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
-    MatPaginatorModule,
-    MatSortModule,
+    // MatPaginatorModule,
+    // MatSortModule,
+    // MatButtonModule,
+    // MatFormFieldModule,
+    MaterialModule,
+
     RouterModule.forChild([
       {path: '', component:BooksComponent},
       {path: ':action/:book_id', component:BookDetailsComponent},
