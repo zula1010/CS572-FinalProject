@@ -1,4 +1,5 @@
 <form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
+  <div class="error" *ngIf = "showError()">{{msg}} </div>
   <div id="container" class ="mat-elevation-z8">
     <div class="book_details page_content ">
       <!--<div class="page_title">{{title}} </div>-->
@@ -6,12 +7,12 @@
         <div class="formGroup">
           <label for="book_title">Book Title</label>
           <!--[disabled]="true"-->
-          <input type="text" class="form-control" id="book_title" formControlName="book_title">
+          <input [readonly] ="this.viewStatus.disableContol" type="text" class="form-control" id="book_title" formControlName="book_title">
 
         </div>
         <div class="formGroup">
           <label for="isbn">ISBN</label>
-          <input type="text" class="form-control" id="isbn" formControlName='isbn'>
+          <input [readonly] ="this.viewStatus.disableContol" type="text" class="form-control" id="isbn" formControlName='isbn'>
         </div>
         <div class="formGroup">
           <label for="des">Description</label>

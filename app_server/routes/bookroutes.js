@@ -55,7 +55,7 @@ function doGetBook(req, res, next) {
         book_copies:1
     }
     const query = {book_id: req.query['book_id']};
-    books.find( query, (err, result) =>{
+    books.find( query, projection, (err, result) =>{
         if(!err) {
             console.log("Get Book successfully: ", result);
             res.json({'Success': 1, 'result': JSON.stringify(result)})
@@ -68,46 +68,36 @@ function doGetBook(req, res, next) {
         }
     } )
 }
-function doCreateBook_old(req, res, next){
-
-    console.log('Request received: \n', req.body);
-    const uuidv4 = require('uuid/v4');
-    const uuid = uuidv4();
-
-    let book = new books(req.body);
-    book.book_id = uuid;
-    book.save( (err, result) =>{
-        if(!err) {
-            console.log("Created Book successfully: ", result);
-            res.json({'Success': 1, 'result': JSON.stringify(result)})
-            res.end();
-
-        }else{
-            console.log("DB ERROR: ", err);
-            res.json({'Success': 0, 'result': null})
-            res.end();
-        }
-    } )
-}
-
 function doCreateBook(req, res, next){
 
     const bookRequest = req.body;
     console.log('bookRequest received: \n', req.body);
     let book = createBookRequest(bookRequest);
     let bookModel = new books(book);
-    bookModel.save( (err, result) =>{
-        if(!err) {
-            console.log("Created Book successfully: ", result);
-            res.json({'Success': 1, 'result': JSON.stringify(result)})
-            res.end();
 
-        }else{
-            console.log("DB ERROR: ", err);
-            res.json({'Success': 0, 'result': null})
+    let query = {$or: [{title: bookRequest.title}, {isbn: bookRequest.isbn}]};
+    books.findOne(query, (err, result) =>{
+        if (result){
+            console.log("Book exist: ", result);
+            res.json({'Success': 2, 'result': JSON.stringify("Book which has title or ISBN exist")});
             res.end();
+        }else{
+            bookModel.save( (err, result) =>{
+                if(!err) {
+                    console.log("Created Book successfully: ", result);
+                    res.json({'Success': 1, 'result': JSON.stringify(result)})
+                    res.end();
+
+                }else{
+                    console.log("DB ERROR: ", err);
+                    res.json({'Success': 0, 'result': null})
+                    res.end();
+                }
+            } )
         }
-    } )
+    })
+
+
 }
 
 
