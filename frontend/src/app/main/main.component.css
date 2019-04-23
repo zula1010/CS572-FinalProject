@@ -1,3 +1,7 @@
+a.menu-active>div.mat-list-item-content{
+  color: red !important;
+  border: 1px 1px 1px 1px;
+}
 .spacer {
     flex: 1 1 auto;
   }
@@ -30,7 +34,4 @@
   
 .main-nav{
     background-color: darkcyan;
-}
-.is-active {
-  background-color: red;
 }

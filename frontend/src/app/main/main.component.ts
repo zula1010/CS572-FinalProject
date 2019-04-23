@@ -15,13 +15,22 @@ import { LoginService } from '../login.service';
 })
 export class MainComponent implements OnInit {
   // fillerNav = Array.from({length: 2}, (_, i) => `Nav Item ${i + 1}`);
-  adminMenus = [
+  private adminMenus = [
     { routeLink: ["admin", "lib"], text: "Librian" },
     { routeLink: ["admin", "books"], text: "book" },
     { routeLink: ["admin", "reader"], text: "reader" }];
-  libMenus = [{ routeLink: ["lib", "checkout"], text: "check out" }, { routeLink: ["lib", "checkin"], text: "check In" }];
+  private libMenus = [
+    { routeLink: ["lib", "checkout"], text: "check out" },
+    { routeLink: ["lib", "checkin"], text: "check In" }];
+
+  allInOneMenus =
+    [
+      { role: "admin", menuList: this.adminMenus, text: "Admin Management" },
+      { role: "lib", menuList: this.libMenus, text: "Check In/Out" },
+    ];
+
   roles: Array<string> = [];
-  current:any;
+  current: number;
   // options: FormGroup;
   @ViewChild('snav') public snav;
 
@@ -32,10 +41,10 @@ export class MainComponent implements OnInit {
     //   top: 0
     // });
   }
-  menuClick(e, routerLink) {
+  menuClick(e, routerLink, idx) {
     this.router.navigate(routerLink, { relativeTo: this.route }).then(() => {
       this.snav.close();
-      this.current = e.target;
+      this.current = idx;
     });
   }
   ngOnInit() {
