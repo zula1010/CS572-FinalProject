@@ -33,7 +33,7 @@ app.use("/api/admin/librian",librianManage);
 app.use('/api/admin/books', bookRouter);
 app.use("/api/admin/reader", readerRouter);
 
-app.use("/api/lib/check",checkoutIn);
+app.use("/api/lib/",checkoutIn);
 
 app.use("/validate", validator);
 app.use("/login",loginRouter);

@@ -33,4 +33,4 @@ checkoutInSchema.pre("findOneAndUpdate", function (next) {
     this._update.modifyDate = new Date();
     next();
 });
-module.exports = mongoose.model("librians", checkoutInSchema);
+module.exports = mongoose.model("checkoutin", checkoutInSchema);
