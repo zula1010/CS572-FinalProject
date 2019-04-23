@@ -4,6 +4,7 @@ import { LibrianService } from 'src/app/librian.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { LibrianElement } from '../librian.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-librian-list',
@@ -12,7 +13,7 @@ import { LibrianElement } from '../librian.component';
 })
 export class LibrianListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['modify', 'position', 'firstname', 'lastname', 'email', 'phoneNumber', 'roles', 'createDate', 'modifyDate'];
+  displayedColumns: string[] = ['remove','modify', 'position', 'firstname', 'lastname', 'email', 'phoneNumber', 'roles', 'createDate', 'modifyDate'];
   resultsLength = 0;
   isLoadingResults = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -20,12 +21,21 @@ export class LibrianListComponent implements OnInit, AfterViewInit {
 
   dataSource: Array<LibrianElement> = [];
 
-  constructor(private librianService: LibrianService) { }
+  constructor(private librianService: LibrianService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
   edit(element) {
-
+    this.router.navigate(["edit"], { relativeTo: this.route.parent, queryParams: { id: element._id } })
+  }
+  remove(element){
+    this.librianService.deleteLibrian(element._id).subscribe(data=>{
+      if(data["result"]){
+        this.dataSource = this.dataSource.filter(row=>row._id !== element._id);
+        this.resultsLength--;
+        this.paginator.page.next();
+      }
+    });
   }
   ngAfterViewInit(): void {
     // If the user changes the sort order, reset back to the first page.

@@ -1,5 +1,7 @@
 <div class="mainContainer">
   <form [formGroup]="newOrEditForm">
+    <h2 style="display:inline">{{title}}</h2>
+    <h4 style="display:inline">: {{subTitle}}</h4>
     <hr>
     <mat-form-field class="input-half-width">
       <input matInput required type="text" class="form-control" placeholder="first name" formControlName="firstname">
@@ -8,14 +10,14 @@
     <mat-form-field class="input-half-width">
       <input matInput required type="text" class="form-control" placeholder="last name" formControlName="lastname">
     </mat-form-field>
-    <mat-form-field class="input-full-width left">
-      <input matInput required type="email" class="form-control" placeholder="Email" formControlName="email">
+    <mat-form-field class="input-full-width left" *ngIf="mode==='new'">
+      <input matInput required type="email" class="form-control" [readonly]="mode==='edit'" placeholder="Email" formControlName="email">
       <mat-error *ngIf="newOrEditForm.get('email').errors&&newOrEditForm.get('email').errors['emailExists']"> Email
         exists, please use other email
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="input-full-width">
+    <mat-form-field class="input-full-width" *ngIf="mode==='new'">
       <input matInput required type="password" class="form-control" placeholder="Password" formControlName="password">
     </mat-form-field>
 
@@ -25,7 +27,7 @@
     <div class="input-full-width">
       <div>*Please select the roles</div>
       <mat-selection-list #roleSel required class="checkbox" formControlName="roles">
-        <mat-list-option *ngFor="let role of roles" [selected]="role.selected" [value]="role.value">
+        <mat-list-option *ngFor="let role of roles" [value]="role.value">
           {{role.displayText}}
         </mat-list-option>
       </mat-selection-list>
@@ -37,3 +39,4 @@
     </div>
   </form>
 </div>
+<!-- [selected]="role.selected" -->

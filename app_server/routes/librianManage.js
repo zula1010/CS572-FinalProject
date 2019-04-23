@@ -55,6 +55,18 @@ router.post('/', (req, res, next) => {
     });
 
 });
+router.get('/:id', (req, res, next) => {
+    const id = req.params.id;
+    Librian.findById(id).then(data => {
+        const retData = data._doc ? { ...data._doc } : { ...data };
+        delete retData["password"];
+        res.json({ result: true, data: retData });
+
+    }).catch(err => {
+        res.json({ result: false });
+    });
+
+});
 router.put('/:id', (req, res, next) => {
     const id = req.params.id;
     Librian.findByIdAndUpdate(id,
@@ -65,13 +77,14 @@ router.put('/:id', (req, res, next) => {
             roles: req.body.roles
         },
         { new: true }).then(data => {
-            const retData = { ...data };
+            const retData = data._doc ? { ...data._doc } : { ...data };
             delete retData["password"];
             res.json({ result: true, data: retData });
 
         }).catch(err => {
             res.json({ result: false });
         });
+
 
 });
 router.put('/:id/password', (req, res, next) => {
@@ -82,7 +95,7 @@ router.put('/:id/password', (req, res, next) => {
                 password: hash
             },
             { new: true }).then(data => {
-                const retData = { ...data };
+                const retData = data._doc ? { ...data._doc } : { ...data };
                 delete retData["password"];
                 res.json({ result: true, data: retData });
 
@@ -90,6 +103,24 @@ router.put('/:id/password', (req, res, next) => {
                 res.json({ result: false });
             });
     });
+
+});
+
+router.delete('/:id', (req, res, next) => {
+    const id = req.params.id;
+    Librian.findByIdAndUpdate(id,
+        {
+            removalFlag:1
+        },
+        { new: true }).then(data => {
+            const retData = data._doc ? { ...data._doc } : { ...data };
+            delete retData["password"];
+            res.json({ result: true, data: retData });
+
+        }).catch(err => {
+            res.json({ result: false });
+        });
+
 
 });
 
