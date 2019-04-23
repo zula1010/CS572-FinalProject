@@ -75,11 +75,14 @@ function doCreateBook(req, res, next){
     let book = createBookRequest(bookRequest);
     let bookModel = new books(book);
 
-    let query = {$or: [{title: bookRequest.title}, {isbn: bookRequest.isbn}]};
+    // let query = {$or: [{title: bookRequest.title}, {isbn: bookRequest.isbn}]};
+    let query = {isbn: bookRequest.isbn};
+    console.log("Save Book query: ", query);
+
     books.findOne(query, (err, result) =>{
         if (result){
             console.log("Book exist: ", result);
-            res.json({'Success': 2, 'result': JSON.stringify("Book which has title or ISBN exist")});
+            res.json({'Success': 2, 'result': JSON.stringify("Book which has ISBN exist")});
             res.end();
         }else{
             bookModel.save( (err, result) =>{
@@ -98,27 +101,6 @@ function doCreateBook(req, res, next){
     })
 
 
-}
-
-
-
-function doUpdateBook_v1(req, res, next){
-    console.log('Request received: \n', req.body);
-    const update = req.body;
-    const query = {book_id: update.book_id};
-    console.log("book_id: ", query);
-    books.findOneAndUpdate(query, update, (err, result) =>{
-        if(!err) {
-            console.log("Updated Book successfully: ", result);
-            res.json({'Success': 1, 'result': JSON.stringify(result)})
-            res.end();
-
-        }else{
-            console.log("DB ERROR: ", err);
-            res.json({'Success': 0, 'result': null})
-            res.end();
-        }
-    } )
 }
 
 function doUpdateBook(req, res, next){

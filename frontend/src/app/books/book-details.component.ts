@@ -21,6 +21,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   private msg = '';
   private book_id = '';
   private action = '';
+  private actionCompleted = true;
   private viewStatus = {
     enableBookCopy: true,
     disableCreate: false,
@@ -104,6 +105,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
             this.msg = result['result'];
           }else{
             this.msg = "Book created successfully!";
+            this.actionCompleted = true;
           }
 
         })
@@ -123,6 +125,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
           this.msg = 'Book saved unsuccessfully!';
         }else{
           this.msg = "Book saved successfully.";
+          this.actionCompleted = true;
         }
       })
       .catch(err =>{
@@ -134,14 +137,15 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
     this.router.navigate(['main/admin/books'])
   }
   canDeactivate() {
-    if(this.detailsForm.dirty)
-    {
-      return window.confirm("All you changes will be discarded, are you sure to continue?");
-    } else {
-      return true;
-    }
-  }
 
+     console.log('this.actionCompleted: ', this.actionCompleted);
+     if(!this.actionCompleted) {
+      if (this.detailsForm.dirty) {
+        return window.confirm("All your changes will be discarded, are you sure to continue?");
+      }
+    }
+    return true;
+  }
 
   private buildForm(){
     //Build the form

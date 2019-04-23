@@ -1,3 +1,18 @@
-<p>
-  checkout works!
-</p>
+<div id="container">
+  <div>
+    <h1>{{message}}</h1>
+    <form [formGroup]="checkoutForm" (ngSubmit)="onCheckout()">
+      <mat-form-field>
+        <input matInput placeholder="Reader" formControlName="reader" required>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput placeholder="Book" formControlName="book" required>
+      </mat-form-field>
+      <br />
+      <button type="submit" class="btn btn-primary">Chekout</button>
+    </form>
+  </div>
+
+
+</div>
