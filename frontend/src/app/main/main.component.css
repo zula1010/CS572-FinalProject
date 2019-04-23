@@ -31,3 +31,6 @@
 .main-nav{
     background-color: darkcyan;
 }
+.is-active {
+  background-color: red;
+}

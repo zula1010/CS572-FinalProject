@@ -109,4 +109,13 @@ export class LibrianEditComponent implements OnInit {
     }
 
   }
+
+  canDeactivate() {
+    if(this.newOrEditForm.dirty)
+    {
+      return window.confirm("All you changes will be discarded, are you sure to continue?");
+    } else {
+      return true;
+    }
+  }
 }
