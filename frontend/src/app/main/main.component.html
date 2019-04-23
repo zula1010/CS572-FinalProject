@@ -11,7 +11,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container [style.marginTop.px]="0" class="main-container">
-    <mat-sidenav #snav [mode]="side" fixedTopGap="56" class="main-nav">
+    <mat-sidenav #snav opened [mode]="side" fixedTopGap="56" class="main-nav">
       <mat-nav-list *ngIf="roles.includes('admin')">
         <h2 mat-subheader>Admin Management</h2>
         <a mat-list-item (click)="menuClick($event, nav.routeLink)" *ngFor="let nav of adminMenus">{{nav.text}}</a>
