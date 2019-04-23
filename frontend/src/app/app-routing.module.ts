@@ -12,7 +12,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { DeactivateGuardService } from './deactivate-guard.service';
 // import {BooksModule} from "./books/books.module";
 
-import {BookLoanComponent} from "./bookloan/book-loan.component";
+import { BookLoanComponent } from "./bookloan/book-loan.component";
 
 const routes: Routes = [
   // { path: 'librian',BookCheckInOutComponentcomponent: LibrianComponent },
@@ -22,8 +22,8 @@ const routes: Routes = [
     path: 'main', component: MainComponent, canActivate: [SecureGuard],
     children: [
       { path: 'admin/reader', component: ReaderComponent },
-      // { path: 'lib/checkout', component: CheckoutComponent },
-      { path: 'lib/checkout', component: BookLoanComponent },
+      { path: 'lib/checkout', component: CheckoutComponent },
+      // { path: 'lib/checkout', component: BookLoanComponent },
       { path: 'lib/checkin', component: BookLoanComponent },
 
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
@@ -33,8 +33,8 @@ const routes: Routes = [
         path: 'admin/lib', component: LibrianComponent, children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: LibrianListComponent },
-          { path: 'new', component: LibrianEditComponent, canDeactivate:[DeactivateGuardService] },
-          { path: 'edit', component: LibrianEditComponent, canDeactivate:[DeactivateGuardService] }
+          { path: 'new', component: LibrianEditComponent, canDeactivate: [DeactivateGuardService] },
+          { path: 'edit', component: LibrianEditComponent, canDeactivate: [DeactivateGuardService] }
         ]
       },
       { path: 'overview', component: DashBoardComponent }
