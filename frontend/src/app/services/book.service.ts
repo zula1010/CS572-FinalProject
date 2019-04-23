@@ -11,7 +11,29 @@ export class BookService {
 
   }
 
-   public  getBooks():any{
+  public searchBook(searchParam):any{
+    let promise = new Promise((resolve, reject) => {
+      let search = {
+        text: 'Web',
+        isbn: ''
+      };
+      let reqParams = new HttpParams();
+      // Begin assigning parameters
+      reqParams.append('text', searchParam);
+      reqParams.append('isbn', '');
+
+      let url = 'http://localhost:3000/books/search';
+      this.http.get(url, {params: search}).subscribe(res =>{
+        console.log('Data Received: ', JSON.parse(res['result']));
+        resolve(JSON.parse(res['result']))
+      });
+    });
+    return promise;
+  }
+
+
+
+  public  getBooks():any{
 
     let promise = new Promise((resolve, reject) => {
       let url = 'http://localhost:3000/books';
