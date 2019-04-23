@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -14,8 +14,8 @@ import {BookService} from "../services/book.service";
   templateUrl:`book-details.component.html`,
   styleUrls: ['./books.component.css']
 })
-export class BookDetailsComponent implements OnInit {
-  private title = 'Book Details:';
+export class BookDetailsComponent implements OnInit, OnDestroy {
+
   private subscription: Subscription;
   detailsForm: FormGroup;
 
@@ -29,7 +29,6 @@ export class BookDetailsComponent implements OnInit {
     disableSave:true
 
   }
-
   //Default values
   private bookDetails:any =  {
     book_id: '',
@@ -52,7 +51,7 @@ export class BookDetailsComponent implements OnInit {
               private fb: FormBuilder,
               private bookService: BookService ) {
 
-    this.subscription =  this.route.params.subscribe( (params) =>{
+      this.subscription =  this.route.params.subscribe( (params) =>{
       console.log("params: ", params)
       this.book_id = params.book_id;
       this.action = params.action;
@@ -62,7 +61,7 @@ export class BookDetailsComponent implements OnInit {
         this.viewStatus.disableSave =  true;
 
       }else{
-        if(this.action == 'view'){
+          if(this.action == 'view'){
           this.viewStatus.disableSave =  true;
           this.viewStatus.disableCreate = true;
         }else {
@@ -70,22 +69,23 @@ export class BookDetailsComponent implements OnInit {
           this.viewStatus.enableBookCopy = true;
           this.viewStatus.disableSave = false;
         }
-
       }
     })
   }
 
+
   ngOnInit() {
+    this.buildForm();
     if(this.book_id != '') {
       this.bookService.getBookDetails(this.book_id)
         .then((bookDetails) => {
           this.bookDetails = bookDetails;
+          this.setFormValue();
         })
         .catch((err) => {
           console.log('ERROR GETTING DATA:', err);
         })
     }
-    this.buildForm();
   }
 
   onSubmit() {
@@ -108,7 +108,6 @@ export class BookDetailsComponent implements OnInit {
     bookInfo.book_id = this.book_id;
     //Don't update book copies
     bookInfo.copy_number = 0;
-    console.log("Save book:",bookInfo );
     this.bookService.saveBook(bookInfo)
       .then( result =>{
         console.log(result);
@@ -123,7 +122,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   private buildForm(){
-
     //Build the form
     this.detailsForm = this.fb.group({
       'book_info': this.fb.group({
@@ -139,6 +137,16 @@ export class BookDetailsComponent implements OnInit {
       })
     })
   }
+
+  private setFormValue(){
+    this.detailsForm.get('book_info').get('book_title').setValue(this.bookDetails.title);
+    this.detailsForm.get('book_info').get('isbn').setValue(this.bookDetails.isbn);
+    this.detailsForm.get('book_info').get('des').setValue(this.bookDetails.des);
+    this.detailsForm.get('book_info').get('author').setValue(this.bookDetails.author);
+    this.detailsForm.get('book_info').get('loan_duration').setValue(this.bookDetails.loan_duration);
+    this.detailsForm.get('book_copies').get('copy_number').setValue(this.bookDetails.number_of_copies);
+    this.detailsForm.get('book_copies').get('copy_note').setValue(this.bookDetails.book_copies[0].note);
+  }
   private getBookInfo():any{
     let bookInfo = {
       book_id: '',
@@ -152,12 +160,16 @@ export class BookDetailsComponent implements OnInit {
       number_of_copies:0,
       copy_number: this.detailsForm.get('book_copies').get('copy_number').value,
       copy_note: this.detailsForm.get('book_copies').get('copy_note').value,
-      tag:["Web", "Programming"],
+      tag:[],
       created_date:new Date(),
       modified_date: new Date(),
     };
-    console.log("getBookInfo: ", bookInfo);
     return bookInfo;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+    console.log("OnDestroy");
   }
 
 }

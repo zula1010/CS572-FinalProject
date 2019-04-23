@@ -17,15 +17,7 @@ import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
     MatPaginatorModule,
     MatSortModule,
     RouterModule.forChild([
-      // { path: '', component:BooksComponent,
-      //   children:[{path:':book_id', component:BookDetailsComponent}]
-      // },
-      // {path: 'search', component: BookSearchComponent },
-      // {path: 'checkin', component: BookCheckInOutComponent },
-      // {path: 'checkout', component: BookCheckInOutComponent }
-
       {path: '', component:BooksComponent},
-      // {path: ':book_id', component:BookDetailsComponent},
       {path: ':action/:book_id', component:BookDetailsComponent},
       {path: 'search', component: BookSearchComponent },
       // {path: 'checkin', component: BookCheckInOutComponent },

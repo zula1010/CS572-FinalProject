@@ -6,14 +6,12 @@
         <div class="formGroup">
           <label for="book_title">Book Title</label>
           <!--[disabled]="true"-->
-          <input type="text" class="form-control" id="book_title" formControlName="book_title"
-                 [value] = "this.bookDetails.title">
+          <input type="text" class="form-control" id="book_title" formControlName="book_title">
 
         </div>
         <div class="formGroup">
           <label for="isbn">ISBN</label>
-          <input type="text" class="form-control" id="isbn" formControlName='isbn'
-                 [value] = "this.bookDetails.isbn">
+          <input type="text" class="form-control" id="isbn" formControlName='isbn'>
         </div>
         <div class="formGroup">
           <label for="des">Description</label>
@@ -38,13 +36,11 @@
         <div class="formGroup book_copies" >
 
           <label for="copy_note" > Note</label>
-          <input [readonly] ="this.viewStatus.enableBookCopy" type="text" class="form-control" id = 'copy_note' formControlName="copy_note"
-                 [value] = "this.bookDetails.book_copies[0].note">
+          <input [readonly] ="this.viewStatus.enableBookCopy" type="text" class="form-control" id = 'copy_note' formControlName="copy_note">
         </div>
         <div class="formGroup book_copies" >
           <label for="copy_number"> Number of Copies</label>
-          <input [readonly] ="this.viewStatus.enableBookCopy" type = "text" class="form-control" id="copy_number" formControlName = "copy_number"
-                 [value] = "this.bookDetails.number_of_copies">
+          <input [readonly] ="this.viewStatus.enableBookCopy" type = "text" class="form-control" id="copy_number" formControlName = "copy_number">
         </div>
 
       </div>
