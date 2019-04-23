@@ -8,7 +8,29 @@ const checkoutIn = require('../model/CheckoutIn');
 
 const router = express.Router();
 
+router.post('/checkin', (req, res, next) => {
+    // checkoutIn.count({
+    //     copyId: req.body.bookId, status: 1
+    // }
+    checkoutIn.findOneAndUpdate({
+        copyId: req.body.bookId, status: 1
+    }, { status: 0 }, (err, doc) => {
+        // console.log(err);
+        // console.log(doc);
+        // console.log(res);
+        if(err)
+        {
+            return next(createError(500, err)); 
+        }
+        if(!doc)
+        {
+            res.json({ result: false, message: "The book copy does not exist." })
+        } else{
+            res.json({ result: true });
+        }
+    })
 
+});
 router.post('/checkout', (req, res, next) => {
 
     Reader.findById(req.body.readId, (err, data) => {
@@ -23,8 +45,7 @@ router.post('/checkout', (req, res, next) => {
                 return next(createError(404, "Book is not found"));
             }
             checkoutIn.count({
-                copyId: req.body.bookId,
-                readerId: req.body.readId, status: 1
+                copyId: req.body.bookId, status: 1
             }, (err, count) => {
                 if (err) {
                     return next(createError(500, err));

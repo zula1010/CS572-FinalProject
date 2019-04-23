@@ -80,3 +80,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhb
     "bookId": "e4f6e6c7-9cb7-4ae5-8839-9062e3b32735",
     "readId": "5cbddcd7885b0905b4ca82e9"
 }
+### 
+
+POST http://localhost:3000/api/lib/checkin/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indhbmdkb25nbGl5YW54aWFuZ0Bob3RtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwibGliIl0sImlhdCI6MTU1NjA0NzA5MiwiZXhwIjoxNTU2MDkwMjkyfQ.MqEGDtF0LJO8rCtcw3rss-l-dlS9varUG8xvg4-wRfk
+
+{
+    "bookId": "e4f6e6c7-9cb7-4ae5-8839-9062e3b32735"
+}
