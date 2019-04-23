@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashBoardComponent } from './dash-board/dash-board.component';
-import { LibrianListComponent } from './librian/librian-list/librian-list.component';
+import { LibrianListComponent, DialogOverviewPasswordDialog } from './librian/librian-list/librian-list.component';
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
 import { ReaderComponent } from './reader/reader.component';
 import { AddReaderComponent } from './reader/reader.component';
@@ -29,7 +29,8 @@ import { TokenInterceptor } from './token.interceptor';
     LibrianEditComponent,
     ReaderComponent,
     AddReaderComponent,
-    EditReaderComponent
+    EditReaderComponent,
+    DialogOverviewPasswordDialog
   ],
   imports: [
     BrowserModule,
@@ -46,6 +47,6 @@ import { TokenInterceptor } from './token.interceptor';
     multi: true
   }],
   bootstrap: [AppComponent],
-  entryComponents: [AddReaderComponent, EditReaderComponent]
+  entryComponents: [AddReaderComponent, EditReaderComponent, DialogOverviewPasswordDialog]
 })
 export class AppModule { }

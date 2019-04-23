@@ -31,6 +31,11 @@ export class LibrianService {
     return this.http.put(`${environment.apiEndpoint}/api/admin/librian/${id}`, data);
   }
 
+  public updateLibrianPassword(id, password){
+    return this.http.put(`${environment.apiEndpoint}/api/admin/librian/${id}/password`, {password:password});
+  }
+
+
   public get(id: string): Observable<LibrianIdApi> {
     const sub = this.http
       .get<LibrianIdApi>(`${environment.apiEndpoint}/api/admin/librian/${id}`);

@@ -14,12 +14,12 @@
     <mat-sidenav #snav opened [mode]="side" fixedTopGap="56" class="main-nav">
       <mat-nav-list *ngIf="roles.includes('admin')">
         <h2 mat-subheader>Admin Management</h2>
-        <a mat-list-item (click)="menuClick($event, nav.routeLink)" *ngFor="let nav of adminMenus">{{nav.text}}</a>
+        <a mat-list-item  (click)="menuClick($event, nav.routeLink)"  *ngFor="let nav of adminMenus">{{nav.text}}</a>
       </mat-nav-list>
       <mat-divider></mat-divider>
       <mat-nav-list *ngIf="roles.includes('lib')">
           <h2 mat-subheader>Check In/Out</h2>
-          <a mat-list-item (click)="menuClick($event, nav.routeLink)" *ngFor="let nav of libMenus">{{nav.text}}</a>
+          <a mat-list-item (click)="menuClick($event, nav.routeLink)"  *ngFor="let nav of libMenus">{{nav.text}}</a>
       </mat-nav-list>
       <!-- <mat-nav-list>
         <h2 mat-subheader>Admin</h2>

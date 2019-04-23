@@ -21,6 +21,7 @@ export class MainComponent implements OnInit {
     { routeLink: ["admin", "reader"], text: "reader" }];
   libMenus = [{ routeLink: ["lib", "checkout"], text: "check out" }, { routeLink: ["lib", "checkin"], text: "check In" }];
   roles: Array<string> = [];
+  current:any;
   // options: FormGroup;
   @ViewChild('snav') public snav;
 
@@ -34,6 +35,7 @@ export class MainComponent implements OnInit {
   menuClick(e, routerLink) {
     this.router.navigate(routerLink, { relativeTo: this.route }).then(() => {
       this.snav.close();
+      this.current = e.target;
     });
   }
   ngOnInit() {
