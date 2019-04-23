@@ -13,6 +13,7 @@ import {
 } from "@angular/material";
 import {Form, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "../core/material.module";
+import {DeactivateGuardService} from "../deactivate-guard.service";
 
 @NgModule({
   declarations: [BooksComponent, BookDetailsComponent,BookSearchComponent ],
@@ -29,10 +30,9 @@ import {MaterialModule} from "../core/material.module";
 
     RouterModule.forChild([
       {path: '', component:BooksComponent},
-      {path: ':action/:book_id', component:BookDetailsComponent},
+      {path: ':action/:book_id', component:BookDetailsComponent, canDeactivate:[DeactivateGuardService] },
       {path: 'search', component: BookSearchComponent },
-      // {path: 'checkin', component: BookCheckInOutComponent },
-      // {path: 'checkout', component: BookCheckInOutComponent }
+
     ])
   ],
   exports: [BooksComponent]

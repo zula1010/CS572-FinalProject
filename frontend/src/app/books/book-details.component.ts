@@ -133,6 +133,15 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   onBack(){
     this.router.navigate(['main/admin/books'])
   }
+  canDeactivate() {
+    if(this.detailsForm.dirty)
+    {
+      return window.confirm("All you changes will be discarded, are you sure to continue?");
+    } else {
+      return true;
+    }
+  }
+
 
   private buildForm(){
     //Build the form
@@ -192,7 +201,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
-    console.log("OnDestroy");
+
   }
 
 }
