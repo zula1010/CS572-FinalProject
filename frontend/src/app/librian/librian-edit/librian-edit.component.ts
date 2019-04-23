@@ -91,6 +91,7 @@ export class LibrianEditComponent implements OnInit {
     {
       this.librianService.insertLibrian(this.newOrEditForm.value).subscribe((data) => {
         if (data["result"]) {
+          this.newOrEditForm.reset();
           this.router.navigate(["list"], { relativeTo: this.route.parent });
         } else {
           alert("Failed to save data!");
@@ -100,6 +101,7 @@ export class LibrianEditComponent implements OnInit {
     } else {
       this.librianService.updateLibrian(this.id, this.newOrEditForm.value).subscribe((data) => {
         if (data["result"]) {
+          this.newOrEditForm.reset();
           this.router.navigate(["list"], { relativeTo: this.route.parent });
         } else {
           alert("Failed to save data!");
