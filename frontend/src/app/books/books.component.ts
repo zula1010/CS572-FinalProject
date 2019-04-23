@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatPaginator, MatSort, MatSortable, MatTableDataSource, Sort} from "@angular/material";
 import {Router} from "@angular/router";
 import {BookService} from "../services/book.service";
 
@@ -60,6 +60,8 @@ export class BooksComponent implements OnInit{
         this.dataSource =  new MatTableDataSource(books);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.sort.sort(<MatSortable>({id: 'title', start: 'asc'}));
+
       })
       .catch(err =>{
         this.dataSource =  new MatTableDataSource([])
