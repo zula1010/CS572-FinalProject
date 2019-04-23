@@ -3,17 +3,17 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css";
 
-.mat-flat-button.mat-primary{
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary{
     background-color:#5b7ca4;
     margin:5px;
 
 }
-.mat-flat-button.mat-primary:active{
+.mat-flat-button.mat-primary:active, .mat-raised-button.mat-primary:active{
     background-color:#5b7ca4;
     margin:5px;
     
 }
-.mat-flat-button.mat-primary:hover{
+.mat-flat-button.mat-primary:hover, .mat-raised-button.mat-primary:hover{
     background-color:#335c8e;
 }
 .mat-toolbar-row{

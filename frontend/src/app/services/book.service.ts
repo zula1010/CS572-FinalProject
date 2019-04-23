@@ -22,7 +22,7 @@ export class BookService {
       reqParams.append('text', searchParam);
       reqParams.append('isbn', '');
 
-      let url = 'http://localhost:3000/books/search';
+      let url = 'http://localhost:3000/api/admin/books/search';
       this.http.get(url, {params: search}).subscribe(res =>{
         console.log('Data Received: ', JSON.parse(res['result']));
         resolve(JSON.parse(res['result']))
@@ -36,7 +36,7 @@ export class BookService {
   public  getBooks():any{
 
     let promise = new Promise((resolve, reject) => {
-      let url = 'http://localhost:3000/books';
+      let url = 'http://localhost:3000/api/admin/books';
       this.http.get(url).subscribe(res =>{
         console.log('Data Received: ', JSON.parse(res['result']));
         resolve(JSON.parse(res['result']))
@@ -48,7 +48,7 @@ export class BookService {
   public  getBookDetails(book_id:string){
 
     let promise = new Promise((resolve, reject) => {
-      let url = 'http://localhost:3000/books/book';
+      let url = 'http://localhost:3000/api/admin/books/book';
       let reqParams = new HttpParams().set('book_id', book_id);
       this.http.get(url, {params: reqParams}).subscribe(res =>{
         const dataReceived: any[] = JSON.parse(res['result']);
@@ -81,7 +81,7 @@ export class BookService {
   public createBook(bookInfo: any){
 
     let promise = new Promise((resolve, reject) => {
-      let url = 'http://localhost:3000/books';
+      let url = 'http://localhost:3000/api/admin/books';
       this.http.post(url, bookInfo).subscribe(res =>{
         console.log('Data Received: ', res);
         resolve(res)
@@ -94,7 +94,7 @@ export class BookService {
   public saveBook(bookInfo: any){
 
     let promise = new Promise((resolve, reject) => {
-      let url = 'http://localhost:3000/books';
+      let url = 'http://localhost:3000/api/admin/books';
       this.http.put(url, bookInfo).subscribe(res =>{
         console.log('Data Received: ', res);
         resolve(res)
@@ -111,7 +111,7 @@ export class BookService {
       body: { book_id: book_id},
     };
     let promise = new Promise((resolve, reject) => {
-      let url = 'http://localhost:3000/books/book';
+      let url = 'http://localhost:3000/api/admin/books/book';
       this.http.delete(url, options).subscribe(res =>{
         console.log('Data Received: ', res);
         resolve(res)

@@ -16,7 +16,7 @@ const readerRouter = require("./routes/reader");
 //Book Management
 const bookRouter = require('./routes/bookroutes');
 
-
+const checkoutIn = require('./routes/checkoutInManage')
 // view engine setup
 
 
@@ -26,17 +26,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-
-
-//Books Management
-app.use('/books', bookRouter);
-
 app.use("/api/admin",authChek("admin"));
 app.use("/api/lib",authChek("lib"));
-app.use("/login",loginRouter);
+
 app.use("/api/admin/librian",librianManage);
-app.use("/reader", readerRouter);
+app.use('/api/admin/books', bookRouter);
+app.use("/api/admin/reader", readerRouter);
+
+app.use("/api/lib/check",checkoutIn);
+
 app.use("/validate", validator);
+app.use("/login",loginRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

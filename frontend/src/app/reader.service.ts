@@ -10,18 +10,18 @@ export class ReaderService {
     constructor(private http: HttpClient, private router: Router) {
     }
     addReader(data) {
-        return this.http.post("http://localhost:3000/reader/add", data);
+        return this.http.post("http://localhost:3000/api/admin/reader/add", data);
     }
     updateReader(data, _id) {
         console.log(data);
         console.log(_id);
-        return this.http.put("http://localhost:3000/reader/update/" + _id, data);
+        return this.http.put("http://localhost:3000/api/admin/reader/update/" + _id, data);
     }
     deleteReader(data) {
-        return this.http.delete("http://localhost:3000/reader/delete/" + data._id);
+        return this.http.delete("http://localhost:3000/api/admin/reader/delete/" + data._id);
     }
     getReader() {
-        return this.http.get("http://localhost:3000/reader");
+        return this.http.get("http://localhost:3000/api/admin/reader");
     }
 
 }
