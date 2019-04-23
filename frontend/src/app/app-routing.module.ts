@@ -12,15 +12,20 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { DeactivateGuardService } from './deactivate-guard.service';
 // import {BooksModule} from "./books/books.module";
 
+import {BookLoanComponent} from "./bookloan/book-loan.component";
+
 const routes: Routes = [
-  // { path: 'librian', component: LibrianComponent },
+  // { path: 'librian',BookCheckInOutComponentcomponent: LibrianComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: 'main', component: MainComponent, canActivate: [SecureGuard],
     children: [
       { path: 'admin/reader', component: ReaderComponent },
-      { path: 'lib/checkout', component: CheckoutComponent },
+      // { path: 'lib/checkout', component: CheckoutComponent },
+      { path: 'lib/checkout', component: BookLoanComponent },
+      { path: 'lib/checkin', component: BookLoanComponent },
+
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'admin/books', loadChildren: './books/books.module#BooksModule' },
       { path: 'lib/loan', loadChildren: './bookloan/bookloan.module#BookloanModule' },

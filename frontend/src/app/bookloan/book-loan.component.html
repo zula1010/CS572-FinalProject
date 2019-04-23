@@ -1,6 +1,7 @@
-<div class="page_content">
+<div class=" mat-elevation-z8 page_content" id="container">
   <div class="page_title">{{checkin_title}}  </div>
-    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="checkinSource">
+  <!--Checkin-->
+    <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="checkinSource"  matSort>
       <ng-container matColumnDef="book_id" >
         <mat-header-cell *matHeaderCellDef [style.display]="'none'">Book Id</mat-header-cell>
         <mat-cell *matCellDef="let element" [style.display]="'none'">{{element.book_id}}</mat-cell>
@@ -38,16 +39,22 @@
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell class="duration-cell" *matCellDef="let row">
-          <button mat-button (click)="checkout(row)"> Checkin </button>
+          <button class="mat-flat-button mat-primary" (click)="checkout(row)"> Edit </button>
         </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+
+      <mat-paginator [pageSize]="5"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons>
+      </mat-paginator>
     </mat-table>
 
+  <!--Checkout records-->
   <div class="page_title">{{checkout_title}}</div>
-  <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="checkinSource">
+  <mat-table class="lessons-table mat-elevation-z8 table-items" [dataSource]="checkinSource" matSort>
     <ng-container matColumnDef="book_id" >
       <mat-header-cell *matHeaderCellDef [style.display]="'none'">Book Id</mat-header-cell>
       <mat-cell *matCellDef="let element" [style.display]="'none'">{{element.book_id}}</mat-cell>
@@ -85,14 +92,17 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell class="duration-cell" *matCellDef="let row">
-        <button mat-button (click)="deleteCheckout(row)"> Checkin </button>
+        <button class="mat-flat-button mat-primary" (click)="deleteCheckout(row)"> Checkin </button>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+
+    <mat-paginator [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons>
+    </mat-paginator>
   </mat-table>
-
-
 
 </div>

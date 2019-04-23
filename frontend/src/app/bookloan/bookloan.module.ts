@@ -6,6 +6,7 @@ import {BookCheckoutComponent} from "./book-checkout.component";
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTableModule} from "@angular/material";
+import {MaterialModule} from "../core/material.module";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {MatTableModule} from "@angular/material";
     FormsModule,
     MatTableModule,
     ReactiveFormsModule,
+    MaterialModule,
     RouterModule.forChild([
       {path: ':', component: BookLoanComponent},
       {path: '', component: BookLoanComponent},
