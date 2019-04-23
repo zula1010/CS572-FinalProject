@@ -45,6 +45,11 @@ export class LibrianService {
   public deleteLibrian(id){
     return this.http.delete(`${environment.apiEndpoint}/api/admin/librian/${id}`);
   }
+   
+  // References https://arjunphp.com/angular-2-async-validator-usernameemail-availability-check/
+  // https://stackoverflow.com/questions/36919011/how-to-add-debounce-time-to-an-async-validator-in-angular-2
+  
+
   checkEmailDuplicate(email) {
     let res = timer(1000)
       .pipe(

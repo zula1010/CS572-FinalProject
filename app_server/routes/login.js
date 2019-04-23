@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const Librian = require('../model/Librian');
 const router = express.Router();
 const JWT_TOKEN = require('../config/keys').jwtKey;
+// References https://www.npmjs.com/package/bcrypt
+// https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
 
  router.post('/', function (req, res, next) {
     Librian.findOne({

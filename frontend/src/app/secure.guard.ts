@@ -3,6 +3,10 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Rout
 import { Observable } from 'rxjs';
 import { LoginService } from './login.service';
 
+/**
+ * https://stackoverflow.com/questions/41148020/angular2-candeactivate-guard
+ * 
+ */
 @Injectable({
   providedIn: 'root'
 })
