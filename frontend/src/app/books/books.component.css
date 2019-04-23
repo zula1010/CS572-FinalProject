@@ -30,7 +30,7 @@
 }
 .table-items {
   width: 100%;
-  padding: 0;
+  margin:auto;
 
  }
 .button_group {
@@ -45,28 +45,20 @@
   clear-after: bottom;
 }
 
-
-.isbn{
-  width: 20%;
-  padding: 10px;
-}
-
-.title{
-  width: 30%;
-  padding: 10px;
-}
-
-.author{
-  width: 21%;
-}
-
-
 .action{
-  width: 40%;
+  width: 30%;
+}
+.isbn{
+  width: 10%;
 
- }
+}
+.title{
+  width: 40%;
+}
+.author{
+  width: 20%;
+}
 .mat-header-cell{
-  color: black;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 13px;
 }

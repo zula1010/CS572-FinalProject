@@ -15,7 +15,7 @@ export class BooksComponent implements OnInit{
 
   title =  'Books';
   dataSource: MatTableDataSource<any>;
-  tableColumns = ['book_id', 'isbn', 'title', 'author','action'];
+  tableColumns = ['action', 'book_id', 'isbn', 'title', 'author'];
   constructor(private router: Router, private bookService: BookService) {
   }
 
@@ -31,9 +31,12 @@ export class BooksComponent implements OnInit{
     }
   }
   processRequest(action:string, row){
-    this.router.navigate(['main/admin/books', action, row.book_id])
-  }
-
+    let book_id = '';
+    if(action != 'new'){
+      book_id = row.book_id;
+    }
+    this.router.navigate(['main/admin/books', action, book_id])
+ }
   onDelete(row){
     console.log(row);
     this.bookService.deleteBook(row.book_id)
@@ -50,13 +53,6 @@ export class BooksComponent implements OnInit{
   private loadBooks(){
     this.bookService.getBooks()
       .then( books =>{
-        let newRow = {
-          book_id: '',
-          isbn: '',
-          title: '',
-          author: '',
-          action:''};
-        books[books.length] = (newRow);
         this.dataSource =  new MatTableDataSource(books);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
