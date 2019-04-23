@@ -33,14 +33,14 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   //Default values
   private bookDetails:any =  {
     book_id: '',
-    title: "Default",
-    des:'Default',
-    isbn: 'Default',
-    author: 'Default',
+    title: "Book title",
+    des:'Book short description',
+    isbn: 'isbn',
+    author: 'Author',
     loan_duration:15,
-    number_of_copies: 5,
+    number_of_copies: 50,
     book_copies:[{
-      note: 'Note',
+      note: 'Copy Note',
       created_date: new Date(),
       copies:[{
         copy_id: "copy_id",
