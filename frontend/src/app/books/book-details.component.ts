@@ -17,16 +17,16 @@ import {BookService} from "../services/book.service";
 export class BookDetailsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  detailsForm: FormGroup;
-
-
+  private detailsForm: FormGroup;
+  private msg = '';
   private book_id = '';
   private action = '';
   private viewStatus = {
     enableBookCopy: true,
     disableCreate: false,
     disableDelete: true,
-    disableSave:true
+    disableSave:true,
+    disableContol: false,
 
   }
   //Default values
@@ -68,6 +68,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
           this.viewStatus.disableCreate = true;
           this.viewStatus.enableBookCopy = true;
           this.viewStatus.disableSave = false;
+          this.viewStatus.disableContol = true;
         }
       }
     })
@@ -76,7 +77,8 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    if(this.book_id != '') {
+    if(this.action !='new'){
+    //if(this.book_id != '') {
       this.bookService.getBookDetails(this.book_id)
         .then((bookDetails) => {
           this.bookDetails = bookDetails;
@@ -98,6 +100,12 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
       this.bookService.createBook(bookInfo)
         .then( result =>{
           console.log(result);
+          if(result['Success'] == 2){
+            this.msg = result['result'];
+          }else{
+            this.msg = "Book created successfully!";
+          }
+
         })
         .catch(err =>{
           console.log("ERROR: ", err);
@@ -111,6 +119,11 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
     this.bookService.saveBook(bookInfo)
       .then( result =>{
         console.log(result);
+        if(result['Success'] != 1){
+          this.msg = 'Book saved unsuccessfully!';
+        }else{
+          this.msg = "Book saved successfully.";
+        }
       })
       .catch(err =>{
         console.log("ERROR: ", err);
@@ -136,6 +149,9 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
         'copy_number': [this.bookDetails.number_of_copies, [Validators.required]]
       })
     })
+    if(this.action == 'view'){
+      this.detailsForm.disable();
+    }
   }
 
   private setFormValue(){
@@ -167,6 +183,13 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
     return bookInfo;
   }
 
+  showError(){
+     if(this.msg != ''){
+       return true;
+     }else{
+       return false;
+     }
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
     console.log("OnDestroy");

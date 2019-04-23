@@ -16,10 +16,19 @@
   padding: 10px;
   float: right;
 }
+.error{
+  color: red;
+  font-weight: bold;
+  text-align: right;
+  padding-top: 10px;
+  padding-right: 40px;
+  margin-bottom: 0px;
 
+}
 .table-items {
   width: 100%;
  }
+
 
 .button_group {
   float: right;
