@@ -8,6 +8,7 @@ import { LibrianListComponent } from './librian/librian-list/librian-list.compon
 import { LibrianEditComponent } from './librian/librian-edit/librian-edit.component';
 import { ReaderComponent } from './reader/reader.component';
 import { SecureGuard } from './secure.guard';
+import { CheckoutComponent } from './checkout/checkout.component';
 // import {BooksModule} from "./books/books.module";
 
 const routes: Routes = [
@@ -15,12 +16,13 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
-    path: 'main', component: MainComponent,canActivate: [SecureGuard],
+    path: 'main', component: MainComponent, canActivate: [SecureGuard],
     children: [
       { path: 'admin/reader', component: ReaderComponent },
+      { path: 'lib/checkout', component: CheckoutComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      {path: 'admin/books', loadChildren: './books/books.module#BooksModule'},
-      {path: 'lib/loan', loadChildren: './bookloan/bookloan.module#BookloanModule'},
+      { path: 'admin/books', loadChildren: './books/books.module#BooksModule' },
+      { path: 'lib/loan', loadChildren: './bookloan/bookloan.module#BookloanModule' },
       {
         path: 'admin/lib', component: LibrianComponent, children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
