@@ -36,8 +36,7 @@ export class BooksComponent implements OnInit{
       book_id = row.book_id;
     }
     this.router.navigate(['main/admin/books', action, book_id])
-  }
-
+ }
   onDelete(row){
     console.log(row);
     this.bookService.deleteBook(row.book_id)
