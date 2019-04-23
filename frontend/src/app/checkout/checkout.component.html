@@ -1,16 +1,20 @@
-<div id="container">
-  <div>
-    <h1>{{message}}</h1>
-    <form [formGroup]="checkoutForm" (ngSubmit)="onCheckout()">
-      <mat-form-field>
-        <input matInput placeholder="Reader" formControlName="reader" required>
+<div class="mainContainer">
+  <div class="center">
+    <form #form [formGroup]="checkoutForm" (ngSubmit)="onCheckout()">
+      <mat-form-field class="input-half-width">
+        <input matInput #readerId placeholder="Reader" autofocus formControlName="readerId" (input)="retrieveReader($event.target.value)"
+          required>
+        <mat-error *ngIf="checkoutForm.get('readerId').errors&&checkoutForm.get('readerId').errors['readerExists']">
+          The person does not exist in the system
+        </mat-error>
+      </mat-form-field>
+      <span> {{readerName}}</span>
+      <br />
+      <mat-form-field class="input-half-width">
+        <input matInput placeholder="Book" formControlName="bookId" required>
       </mat-form-field>
       <br />
-      <mat-form-field>
-        <input matInput placeholder="Book" formControlName="book" required>
-      </mat-form-field>
-      <br />
-      <button type="submit" class="btn btn-primary">Chekout</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid">Chekout</button>
     </form>
   </div>
 

@@ -33,7 +33,7 @@ router.post('/checkin', (req, res, next) => {
 });
 router.post('/checkout', (req, res, next) => {
 
-    Reader.findById(req.body.readId, (err, data) => {
+    Reader.findById(req.body.readerId, (err, data) => {
         if (err) {
             return next(createError(500, err));
         }
@@ -59,7 +59,7 @@ router.post('/checkout', (req, res, next) => {
                 let newRecord = new checkoutIn({
                     _id: new mongoose.Types.ObjectId(),
                     copyId: req.body.bookId,
-                    readerId: req.body.readId,
+                    readerId: req.body.readerId,
                     // status: ,
                     due_date: dt
                 });
@@ -67,7 +67,7 @@ router.post('/checkout', (req, res, next) => {
                     if (err) {
                         return next(createError(500, err));
                     }
-                    res.json({ result: true });
+                    res.json({ result: true,  data:{due_date: dt}});
                 });
             })
 

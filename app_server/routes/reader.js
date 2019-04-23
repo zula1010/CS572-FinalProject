@@ -59,4 +59,22 @@ router.get('/', (req, res) => {
     Reader.find({ 'removalFlag': 0 }).sort('-createDate')
         .then(data => { res.json(data); });
 })
+router.get('/:id', (req, res, next) => {
+    const id = req.params.id;
+    Reader.findById(id).then(data => {
+       
+        const retData = data._doc ? { ...data._doc } : { ...data };
+        if(retData["removalFlag"]===1)
+        {
+            return res.json({ result: false, message: "The user does not exist or is removed!" });
+        } else {
+            res.json({ result: true, data: retData });
+        }
+      
+
+    }).catch(err => {
+        res.json({ result: false });
+    });
+
+});
 module.exports = router;

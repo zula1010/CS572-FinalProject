@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReaderService } from '../reader.service';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
 import { DataSource } from '@angular/cdk/table';
+import { LibrianService } from '../librian.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -13,24 +15,51 @@ import { DataSource } from '@angular/cdk/table';
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
-  message;
-  reader_id;
-  book_id;
+  readerName: string = "";
   ngOnInit() {
 
 
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  @ViewChild('readerId') readerId: ElementRef;
+  @ViewChild('form') form;
+
+  constructor(private formBuilder: FormBuilder, private librianService: LibrianService) {
     this.checkoutForm = formBuilder.group({
-      'reader': [''],
-      'book': ['']
+      'readerId': ['', [Validators.required], [librianService.readerValidator()]],
+      'bookId': ['', [Validators.required]]
     })
   }
   onCheckout() {
-    this.reader_id = this.checkoutForm.value.reader;
-    this.book_id = this.checkoutForm.value.book;
-    console.log(this.reader_id + " ---" + this.book_id);
+    console.log(this.checkoutForm.value);
+    this.librianService.checkout(this.checkoutForm.value).subscribe(data => {
+      if (data["result"]) {
+        alert("Checkout sucess, please return book before: " + formatDate(data["data"]["due_date"], "MM-dd-yyyy", "en-US"));
+        // this.checkoutForm.mar
+        this.readerName = "";
+        this.checkoutForm.reset();
+        this.checkoutForm.markAsPristine();
+        this.checkoutForm.markAsUntouched();
+        this.checkoutForm.updateValueAndValidity();
+        this.readerId.nativeElement.focus();
+
+      } else {
+        alert(data["message"]);
+      }
+    });
+  }
+  retrieveReader(val) {
+    if (!val) {
+      return;
+    }
+    this.librianService.retrieveReader(val).subscribe(data => {
+      console.log(data);
+      if (data["result"]) {
+        this.readerName = data["data"]["firstname"] + " " + data["data"]["firstname"];
+      } else {
+        this.readerName = "";
+      }
+    })
   }
 
 }
