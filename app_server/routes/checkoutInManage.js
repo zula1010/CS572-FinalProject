@@ -24,7 +24,7 @@ router.post('/checkin', (req, res, next) => {
         }
         if(!doc)
         {
-            res.json({ result: false, message: "The book copy does not exist." })
+            res.json({ result: false, message: "The book copy is not borrowed by anyone." })
         } else{
             res.json({ result: true });
         }

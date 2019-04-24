@@ -22,7 +22,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   @ViewChild('readerId') readerId: ElementRef;
-  @ViewChild('form') form;
 
   constructor(private formBuilder: FormBuilder, private librianService: LibrianService) {
     this.checkoutForm = formBuilder.group({

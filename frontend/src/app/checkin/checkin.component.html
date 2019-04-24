@@ -1,0 +1,14 @@
+<div class="mainContainer">
+    <div class="center">
+      <form #form [formGroup]="checkinForm" (ngSubmit)="onCheckin()">
+        <br />
+        <mat-form-field class="input-half-width">
+          <input #bookId matInput placeholder="Book" formControlName="bookId" required>
+        </mat-form-field>
+        <br />
+        <button type="submit" class="btn btn-primary" [disabled]="!checkinForm.valid">Checkin</button>
+      </form>
+    </div>
+  
+  
+  </div>

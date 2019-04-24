@@ -125,7 +125,7 @@ export class LibrianService {
 // }
     return this.http.post(`${environment.apiEndpoint}/api/lib/checkout/`, payload);
   }
-  checkin(bookId)
+  checkin(payload)
   {
 //     POST http://localhost:3000/api/lib/checkin/ HTTP/1.1
 // content-type: application/json
@@ -134,6 +134,6 @@ export class LibrianService {
 // {
 //     "bookId": "e4f6e6c7-9cb7-4ae5-8839-9062e3b32735"
 // }
-    return this.http.post(`${environment.apiEndpoint}/api/lib/checkin/`, {bookId:bookId});
+    return this.http.post(`${environment.apiEndpoint}/api/lib/checkin/`, payload);
   }
 }

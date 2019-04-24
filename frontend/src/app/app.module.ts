@@ -19,6 +19,7 @@ import { EditReaderComponent } from './reader/reader.component';
 import { TokenInterceptor } from './token.interceptor';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {BookLoanComponent} from "./bookloan/book-loan.component";
+import { CheckinComponent } from './checkin/checkin.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {BookLoanComponent} from "./bookloan/book-loan.component";
     EditReaderComponent,
     DialogOverviewPasswordDialog,
     CheckoutComponent,
-    BookLoanComponent
+    BookLoanComponent,
+    CheckinComponent
   ],
   imports: [
     BrowserModule,
