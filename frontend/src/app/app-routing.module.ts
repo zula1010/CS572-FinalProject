@@ -15,25 +15,28 @@ import { DeactivateGuardService } from './deactivate-guard.service';
 import { BookLoanComponent } from "./bookloan/book-loan.component";
 import { CheckinComponent } from './checkin/checkin.component';
 import { DummyComponent } from './dummy/dummy.component';
+import { RoleGuard } from './role.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   // { path: 'librian',BookCheckInOutComponentcomponent: LibrianComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: '404', component: NotFoundComponent },
   {
     path: 'main', component: MainComponent, canActivate: [SecureGuard],
     children: [
-      { path: 'admin/reader', component: ReaderComponent },
-      { path: 'lib/checkout', component: CheckoutComponent },
+      { path: 'admin/reader', component: ReaderComponent, canActivate: [RoleGuard], data: {role: 'admin'} },
+      { path: 'lib/checkout', component: CheckoutComponent,canActivate: [RoleGuard], data: {role: 'lib'} },
       // { path: 'lib/checkout', component: BookLoanComponent },
-      { path: 'lib/checkin', component: CheckinComponent },
+      { path: 'lib/checkin', component: CheckinComponent, canActivate: [RoleGuard], data: {role: 'lib'}},
       { path: 'dummy', component: DummyComponent},
 
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      { path: 'admin/books', loadChildren: './books/books.module#BooksModule' },
-      { path: 'lib/loan', loadChildren: './bookloan/bookloan.module#BookloanModule' },
+      { path: 'admin/books', loadChildren: './books/books.module#BooksModule' , canActivate: [RoleGuard],data: {role: 'admin'} },
+      // { path: 'lib/loan', loadChildren: './bookloan/bookloan.module#BookloanModule' },
       {
-        path: 'admin/lib', component: LibrianComponent, children: [
+        path: 'admin/lib', component: LibrianComponent, canActivate: [RoleGuard],data: {role: 'admin'}, children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: LibrianListComponent },
           { path: 'new', component: LibrianEditComponent, canDeactivate: [DeactivateGuardService] },

@@ -21,6 +21,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import {BookLoanComponent} from "./bookloan/book-loan.component";
 import { CheckinComponent } from './checkin/checkin.component';
 import { DummyComponent } from './dummy/dummy.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DummyComponent } from './dummy/dummy.component';
     CheckoutComponent,
     BookLoanComponent,
     CheckinComponent,
-    DummyComponent
+    DummyComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
