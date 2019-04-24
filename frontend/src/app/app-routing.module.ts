@@ -14,6 +14,7 @@ import { DeactivateGuardService } from './deactivate-guard.service';
 
 import { BookLoanComponent } from "./bookloan/book-loan.component";
 import { CheckinComponent } from './checkin/checkin.component';
+import { DummyComponent } from './dummy/dummy.component';
 
 const routes: Routes = [
   // { path: 'librian',BookCheckInOutComponentcomponent: LibrianComponent },
@@ -26,8 +27,7 @@ const routes: Routes = [
       { path: 'lib/checkout', component: CheckoutComponent },
       // { path: 'lib/checkout', component: BookLoanComponent },
       { path: 'lib/checkin', component: CheckinComponent },
-      { path: 'lib/fcheckout', redirectTo: 'lib/checkout', pathMatch: 'full' },
-      { path: 'lib/fcheckin', redirectTo: 'lib/checkin', pathMatch: 'full' },
+      { path: 'dummy', component: DummyComponent},
 
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'admin/books', loadChildren: './books/books.module#BooksModule' },

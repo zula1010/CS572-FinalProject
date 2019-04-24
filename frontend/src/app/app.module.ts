@@ -20,6 +20,7 @@ import { TokenInterceptor } from './token.interceptor';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {BookLoanComponent} from "./bookloan/book-loan.component";
 import { CheckinComponent } from './checkin/checkin.component';
+import { DummyComponent } from './dummy/dummy.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CheckinComponent } from './checkin/checkin.component';
     DialogOverviewPasswordDialog,
     CheckoutComponent,
     BookLoanComponent,
-    CheckinComponent
+    CheckinComponent,
+    DummyComponent
   ],
   imports: [
     BrowserModule,
