@@ -19,7 +19,7 @@ const JWT_TOKEN = require('../config/keys').jwtKey;
         }
         bcrypt.compare(req.body.password, user.password, (err, same) => {
             if (same) {
-                let token = jwt.sign({ username: user.email, roles: user.roles },
+                let token = jwt.sign({ username: user.email, roles: user.roles, id: user._id },
                     JWT_TOKEN,
                     {
                         expiresIn: '12h'

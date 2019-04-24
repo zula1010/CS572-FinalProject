@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../login.service';
+import { MatDialog } from '@angular/material';
+import { DialogOverviewPasswordDialog } from '../librian/librian-list/librian-list.component';
 
 // const MY_ROUTES:Routes = [
 //   {path:'', component:UsersComponent},
@@ -34,7 +36,7 @@ export class MainComponent implements OnInit {
   // options: FormGroup;
   @ViewChild('snav') public snav;
 
-  constructor(private router: Router, private route: ActivatedRoute, private loginService: LoginService) {
+  constructor(private router: Router, private route: ActivatedRoute, private loginService: LoginService,private dialog: MatDialog) {
     // this.options = fb.group({
     //   bottom: 0,
     //   fixed: false,
@@ -45,6 +47,16 @@ export class MainComponent implements OnInit {
     this.router.navigate(routerLink, { relativeTo: this.route }).then(() => {
       this.snav.close();
       this.current = idx;
+    });
+  }
+  changepwd(element) {
+    const dialogRef = this.dialog.open(DialogOverviewPasswordDialog, {
+      width: '250px',
+      data: { id: this.loginService.getLoginUserInfo().id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
   ngOnInit() {
