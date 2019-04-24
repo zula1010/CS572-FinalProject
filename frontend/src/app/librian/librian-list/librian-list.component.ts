@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { LibrianService } from 'src/app/librian.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class LibrianListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // @ViewChild(MatSort) sort: MatSort;
 
-  dataSource: Array<LibrianElement> = [];
+  dataSource= new MatTableDataSource([]);
 
   constructor(private librianService: LibrianService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) { }
 
@@ -35,11 +35,14 @@ export class LibrianListComponent implements OnInit, AfterViewInit {
   remove(element) {
     this.librianService.deleteLibrian(element._id).subscribe(data => {
       if (data["result"]) {
-        this.dataSource = this.dataSource.filter(row => row._id !== element._id);
+        this.dataSource = new MatTableDataSource(this.dataSource.data.filter(row => row._id !== element._id));
         this.resultsLength--;
         this.paginator.page.next();
       }
     });
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   changepwd(element) {
     const dialogRef = this.dialog.open(DialogOverviewPasswordDialog, {
@@ -71,7 +74,7 @@ export class LibrianListComponent implements OnInit, AfterViewInit {
           this.isLoadingResults = false;
           return observableOf([]);
         })
-      ).subscribe(data => this.dataSource = data);
+      ).subscribe(data => this.dataSource = new MatTableDataSource(data));
   }
 }
 
